@@ -23,6 +23,8 @@ export class HistoryScreen extends React.Component {
     if (this.state.user_id != 'Enter username here...' && this.state.user_id != 'Change me down here') {
       this.saveData()
       this.props.resetHistory()
+
+      //Note: should really have loadData as a callback of saveData
       this.loadData()
     } else {
       this.setState({ user_id: 'Change me down here' })

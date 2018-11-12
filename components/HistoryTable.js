@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 import injectionsites from './injectionsites';
+import moment from 'moment'
 
 export default class HistoryTable extends Component {
   organiseData() {
     const formattedData = this.props.history.map((injection) => {
       return [
-        injection.time.format('MMMM Do YYYY, h:mm a'),
+        moment.unix(parseInt(injection.time, 10)/1000).format('MMMM Do YYYY, h:mm a'),
         `${injection.site.side} ${injection.site.part} ${injection.site.quadrant}`,
         injection.medType,
         injection.dbsync.toString()

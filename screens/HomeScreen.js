@@ -66,6 +66,18 @@ export class HomeScreen extends React.Component {
     }
   }
 
+  previousSite() {
+    if (this.props.history.length !== 0) {
+      return <PreviousSite
+        id='previousSite'
+        site={this.props.history[this.props.history.length - 1].site}
+        time={this.props.history[this.props.history.length - 1].time}
+      />
+    } else {
+      // return <Text>No saved sites yet</Text>
+    }
+  }
+
   render() {
     const config = {
       velocityThreshold: 0.05,
@@ -75,11 +87,7 @@ export class HomeScreen extends React.Component {
       <View style={styles.container}>
         <View>
           {/* <Header /> */}
-          <PreviousSite
-            id='previousSite'
-            site={this.props.history[this.props.history.length - 1].site}
-            time={this.props.history[this.props.history.length - 1].time}
-          />
+          {this.previousSite()}
           <GestureRecognizer
             onSwipeLeft={ () => this.handleSkip() }
             onSwipeRight={ () => this.handleSkip() }
