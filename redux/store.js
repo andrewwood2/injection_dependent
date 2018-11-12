@@ -1,6 +1,20 @@
 import { createStore } from 'redux';
-import reducers from './reducers';
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
 
-let store = createStore(reducers);
+import reducers from './reducers/index';
 
-export default store;
+const persistConfig = {
+  key: 'root',
+  storage,
+}
+
+const persistedReducer = persistReducer(persistConfig, reducers)
+
+function timeconv() {
+
+}
+
+const store = createStore(persistedReducer)
+const persistor = persistStore(store, null, timeconv())
+export { store, persistor }

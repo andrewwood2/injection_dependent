@@ -9,7 +9,7 @@ export default function historyReducer (state = [new DefaultFirstInj().defaultFi
             return state.concat([action.item]);
 
         case 'history-reset-defaults':
-            return [{ site: injectionsites[injectionsites.length - 1], time: moment(), dbsync: true, medType: "Short" }];
+            return [{ site: injectionsites[injectionsites.length - 1], time: Date.now(), dbsync: true, medType: "Short" }];
 
         case 'history-sync-status':
           let syncStatusNew = state.map((inj) => {
