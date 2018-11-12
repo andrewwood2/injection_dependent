@@ -12,6 +12,7 @@ import CurrentSite from "../components/CurrentSite";
 import PreviousSite from "../components/PreviousSite";
 import injectionsites from "../components/injectionsites";
 import BodyImages from "../components/BodyImages";
+import DefaultFirstInj from "../components/defaultFirstInj"
 
 describe("Homescreen", () => {
   timekeeper.freeze(new Date(1539760000000))
@@ -19,6 +20,7 @@ describe("Homescreen", () => {
   let mockNextInjSite
   let mockSaveInj
   let mockRotateNSites
+  let firstInj = new DefaultFirstInj().defaultFirstInj
 
   beforeEach(() => {
     mockNextInjSite = jest.fn();
@@ -29,7 +31,7 @@ describe("Homescreen", () => {
       nextInjSite={mockNextInjSite}
       rotateNSites={mockRotateNSites}
       sites={injectionsites}
-      history={[{ site: injectionsites[injectionsites.length - 1], time: moment() }]}
+      history={[{ site: firstInj.site, time: firstInj.time }]}
     />)
   })
 
@@ -40,11 +42,10 @@ describe("Homescreen", () => {
       expect(currentSite.props().site).toEqual(injectionsites[0]);
     });
     it("should render the text of the previous injection location, with a time", () => {
-      time = moment()
       const previousSite = hs.find(PreviousSite);
       expect(previousSite.length).toEqual(1);
-      expect(previousSite.props().site).toEqual(injectionsites[injectionsites.length - 1]);
-      expect(previousSite.props().time).toEqual(time);
+      expect(previousSite.props().site).toEqual(firstInj.site);
+      expect(previousSite.props().time).toEqual(firstInj.time);
     });
     it("wont render a site that is not active", () => {
       let inactive = [
@@ -54,7 +55,7 @@ describe("Homescreen", () => {
       hs = shallow(<HomeScreen
         rotateNSites={mockRotateNSites}
         sites={inactive}
-        history={[{ site: injectionsites[injectionsites.length - 1], time: moment() }]}
+        history={[{ site: firstInj.site, time: firstInj.time }]}
       />)
       const currentSite = hs.find(CurrentSite);
       expect(currentSite.length).toEqual(1);
@@ -87,7 +88,7 @@ describe("Homescreen", () => {
       expect(mockSaveInj.mock.calls.length).toBe(1)
       expect(mockSaveInj).toHaveBeenCalledWith({
         site: injectionsites[0],
-        time: moment(),
+        time: Date.now(),
         dbsync: false,
         medType: "Short"
       })
@@ -98,7 +99,7 @@ describe("Homescreen", () => {
       expect(mockSaveInj.mock.calls.length).toBe(1)
       expect(mockSaveInj).toHaveBeenCalledWith({
         site: injectionsites[0],
-        time: moment(),
+        time: Date.now(),
         dbsync: false,
         medType: "Long"
       })

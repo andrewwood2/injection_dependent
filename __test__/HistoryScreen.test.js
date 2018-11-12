@@ -81,7 +81,7 @@ describe("HistoryScreen", () => {
             injection: {
               user_id: 'Bob',
               site: JSON.stringify(firstInj.site),
-              time: firstInj.time.unix(),
+              time: firstInj.time,
               medtype: firstInj.medType
             }
           }
