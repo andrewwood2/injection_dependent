@@ -59,9 +59,6 @@ describe("HistoryScreen", () => {
       jest.setMock("axios", mockAxios);
     })
     describe('Save', () => {
-      beforeEach(() => {
-
-      })
       it('wont save if no username has been provided', () => {
         historyScreen.find('#save').simulate('press')
         expect(mockAxios.post.mock.calls.length).toEqual(0)
@@ -91,9 +88,6 @@ describe("HistoryScreen", () => {
     })
 
     describe('Load', () => {
-      beforeEach(() => {
-
-      })
       it('wont load if no username has been provided', () => {
         historyScreen.find('#load').simulate('press')
         expect(mockAxios.get.mock.calls.length).toEqual(0)
@@ -112,6 +106,14 @@ describe("HistoryScreen", () => {
         )
         expect(mockUpdateSyncStatus.mock.calls.length).toBe(1)
         expect(mockResetHistory.mock.calls.length).toBe(1)
+      })
+    })
+
+    describe('Delete', () => {
+      it('deletes data locally', () => {
+        historyScreen.find('#delete').simulate('press')
+        expect(mockPersistor.purge.mock.calls.length).toEqual(1)
+        expect(mockResetHistory.mock.calls.length).toEqual(1)
       })
     })
   });
