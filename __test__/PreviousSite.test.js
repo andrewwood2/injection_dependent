@@ -20,7 +20,7 @@ describe('PreviousSite', () => {
       .find('#site')
       .dive()
       .text();
-    expect(text).toEqual('Right Buttock 4\n');
+    expect(text).toEqual('Previous injections appear here\n');
   });
 
   it('renders the time of the last injection', () => {
