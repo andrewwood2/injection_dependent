@@ -115,6 +115,19 @@ describe("HistoryScreen", () => {
         historyScreen.find('#delete').simulate('press')
         expect(mockResetHistory.mock.calls.length).toEqual(1)
       })
+      it('wont call db if no username has been provided', () => {
+        historyScreen.find('#delete').simulate('press')
+        expect(mockAxios.delete.mock.calls.length).toEqual(0)
+      })
+      it('calls axios delete on the users records', () => {
+        userInput = historyScreen.find(TextInput)
+        userInput.simulate('changeText', 'Bob')
+        historyScreen.find('#delete').simulate('press')
+        expect(mockAxios.delete).toHaveBeenCalledWith(
+          `${DB_ADDRESS}/injections?user_id=Bob`
+        )
+        expect(mockUpdateSyncStatus.mock.calls.length).toBe(1)
+      })
     })
   });
 });
