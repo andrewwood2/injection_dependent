@@ -11,6 +11,7 @@ import DefaultFirstInj from "../components/defaultFirstInj"
 describe("HistoryScreen", () => {
   timekeeper.freeze(new Date(1539760000000))
   let firstInj = new DefaultFirstInj().defaultFirstInj
+  const DB_ADDRESS = 'https://guarded-caverns-16437.herokuapp.com'
 
   let history
   let historyScreen;
@@ -73,7 +74,7 @@ describe("HistoryScreen", () => {
         userInput.simulate('changeText', 'Bob')
         historyScreen.find('#save').simulate('press')
         expect(mockAxios.post).toHaveBeenCalledWith(
-          'https://guarded-caverns-16437.herokuapp.com/injections',
+          `${DB_ADDRESS}/injections`,
           {
             injection: {
               user_id: 'Bob',
@@ -102,7 +103,7 @@ describe("HistoryScreen", () => {
         userInput.simulate('changeText', 'Bob')
         historyScreen.find('#load').simulate('press')
         expect(mockAxios.get).toHaveBeenCalledWith(
-          'https://guarded-caverns-16437.herokuapp.com/injections?user_id=Bob'
+          `${DB_ADDRESS}/injections?user_id=Bob`
         )
         expect(mockUpdateSyncStatus.mock.calls.length).toBe(1)
         expect(mockResetHistory.mock.calls.length).toBe(1)

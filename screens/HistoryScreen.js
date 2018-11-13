@@ -7,6 +7,8 @@ import moment from 'moment'
 import { connect } from 'react-redux'
 import { saveInj, resetHistory, updateSyncStatus } from '../redux/actions/history';
 
+const DB_ADDRESS = 'https://guarded-caverns-16437.herokuapp.com'
+
 export class HistoryScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -35,7 +37,7 @@ export class HistoryScreen extends React.Component {
     if (this.state.user_id != 'Enter username here...' && this.state.user_id != 'Change me down here') {
       this.props.history.forEach((inj) => {
         if (inj.dbsync === false) {
-          axios.post(`https://guarded-caverns-16437.herokuapp.com/injections`, {
+          axios.post(`${DB_ADDRESS}/injections`, {
             injection: {
               user_id: this.state.user_id,
               site: JSON.stringify(inj.site),
@@ -53,7 +55,7 @@ export class HistoryScreen extends React.Component {
 
   loadData() {
     self = this
-    axios.get(`https://guarded-caverns-16437.herokuapp.com/injections?user_id=${this.state.user_id}`)
+    axios.get(`${DB_ADDRESS}/injections?user_id=${this.state.user_id}`)
     .then(data => {
       for (i in data) {
         data[i].forEach((inj) => {
