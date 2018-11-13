@@ -1,12 +1,12 @@
 import '../setupTests';
 
 import React from 'react';
-import SignUp from '../components/SignUp';
+import SignUpModal from '../components/SignUpModal';
 
 describe('SignUp', () => {
   let wrapper;
   beforeEach(() => {
-    wrapper = shallow(<SignUp />);
+    wrapper = shallow(<SignUpModal />);
   });
 
   it('Renders a username field', () => {
