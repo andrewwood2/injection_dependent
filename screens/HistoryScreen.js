@@ -71,6 +71,10 @@ export class HistoryScreen extends React.Component {
     })
   }
 
+  deleteAllData() {
+    this.props.resetHistory()
+  }
+
   render() {
     return (
       <ScrollView style={styles.container}>
@@ -94,6 +98,11 @@ export class HistoryScreen extends React.Component {
           id="username"
           placeholder={this.state.user_id}
           onChangeText={ (user_id) => this.setState({ user_id }) }
+        />
+        <Button
+          title={'Delete all'}
+          id={'delete'}
+          onPress={() => this.deleteAllData()}
         />
       </ScrollView>
     );

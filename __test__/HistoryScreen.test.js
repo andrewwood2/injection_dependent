@@ -112,7 +112,6 @@ describe("HistoryScreen", () => {
     describe('Delete', () => {
       it('deletes data locally', () => {
         historyScreen.find('#delete').simulate('press')
-        expect(mockPersistor.purge.mock.calls.length).toEqual(1)
         expect(mockResetHistory.mock.calls.length).toEqual(1)
       })
     })
