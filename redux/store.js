@@ -11,10 +11,6 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, reducers)
 
-function timeconv() {
-
-}
-
 const store = createStore(persistedReducer)
-const persistor = persistStore(store, null, timeconv())
+const persistor = persistStore(store)
 export { store, persistor }

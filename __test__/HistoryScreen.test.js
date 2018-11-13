@@ -11,7 +11,8 @@ import DefaultFirstInj from "../components/defaultFirstInj"
 describe("HistoryScreen", () => {
   timekeeper.freeze(new Date(1539760000000))
   let firstInj = new DefaultFirstInj().defaultFirstInj
-  const DB_ADDRESS = 'https://guarded-caverns-16437.herokuapp.com'
+  // const DB_ADDRESS = 'https://guarded-caverns-16437.herokuapp.com'
+  const DB_ADDRESS = 'http://localhost:9292'
 
   let history
   let historyScreen;
@@ -56,7 +57,6 @@ describe("HistoryScreen", () => {
 
   describe('DB save and load', () => {
     beforeEach(() => {
-      // let axios = mockAxios;
       jest.setMock("axios", mockAxios);
     })
     describe('Save', () => {
@@ -124,9 +124,9 @@ describe("HistoryScreen", () => {
         userInput.simulate('changeText', 'Bob')
         historyScreen.find('#delete').simulate('press')
         expect(mockAxios.delete).toHaveBeenCalledWith(
-          `${DB_ADDRESS}/injections?user_id=Bob`
+          `${DB_ADDRESS}/injections/1?user_id=Bob`
         )
-        expect(mockUpdateSyncStatus.mock.calls.length).toBe(1)
+        expect(mockAxios.delete.mock.calls.length).toBe(1)
       })
     })
   });

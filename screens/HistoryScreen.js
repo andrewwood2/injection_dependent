@@ -7,7 +7,8 @@ import moment from 'moment'
 import { connect } from 'react-redux'
 import { saveInj, resetHistory, updateSyncStatus } from '../redux/actions/history';
 
-const DB_ADDRESS = 'https://guarded-caverns-16437.herokuapp.com'
+// const DB_ADDRESS = 'https://guarded-caverns-16437.herokuapp.com'
+const DB_ADDRESS = 'http://localhost:9292'
 
 export class HistoryScreen extends React.Component {
   constructor(props) {
@@ -74,26 +75,30 @@ export class HistoryScreen extends React.Component {
   }
 
   deleteAllData() {
+    if (this.state.user_id != 'Enter username here...' && this.state.user_id != 'Change me down here') {
+      axios.delete(`${DB_ADDRESS}/injections/1?user_id=${this.state.user_id}`)
+    } else {
+      this.setState({ user_id: 'Change me down here' })
+    }
     this.props.resetHistory()
   }
 
   render() {
     return (
       <ScrollView style={styles.container}>
-
         <HistoryTable history={this.props.history} />
-          <Button
-            title={'Load'}
-            id={'load'}
-            onPress={ () => {
-              this.prepareLoad()
-            }}
-          />
-          <Button
-            title={'Save'}
-            id={'save'}
-            onPress={() => this.saveData()}
-          />
+        <Button
+          title={'Load'}
+          id={'load'}
+          onPress={ () => {
+            this.prepareLoad()
+          }}
+        />
+        <Button
+          title={'Save'}
+          id={'save'}
+          onPress={() => this.saveData()}
+        />
         <Text>Username:</Text>
         <TextInput
           name="username"
