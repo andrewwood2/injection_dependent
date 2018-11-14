@@ -40,6 +40,9 @@ export class SettingsScreen extends React.Component {
             ))
           }
         </View>
+        <View>
+          <SignUpModal />
+        </View>
       </React.Fragment>
     );
   }

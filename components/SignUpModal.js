@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Alert, Modal, Text, TextInput, TouchableHighlight, View } from 'react-native';
+import Styles from './Styles';
 
 export default class SignUpModal extends Component {
   constructor(props) {
@@ -9,10 +10,17 @@ export default class SignUpModal extends Component {
     };
   }
 
+  changeVisibility() {
+    this.setState(prevState => ({
+      modalVisible: !prevState.modalVisible,
+    }));
+  }
+
   render() {
     return (
       <View>
         <Modal
+          id="modal"
           animationType="fade"
           presentationStyle="fullScreen"
           transparent={false}
@@ -39,13 +47,31 @@ export default class SignUpModal extends Component {
             />
           </View>
           <View>
-            <TouchableHighlight id="signup">
+            <TouchableHighlight
+              id="cancel"
+              onPress={() => {
+                this.changeVisibility();
+              }}
+            >
               <Text>
-                Sign Up
+                Cancel
               </Text>
             </TouchableHighlight>
           </View>
         </Modal>
+        <View>
+          <TouchableHighlight
+            id="signup"
+            onPress={() => {
+              this.changeVisibility();
+            }
+          }
+          >
+            <Text>
+              Sign Up
+            </Text>
+          </TouchableHighlight>
+        </View>
       </View>
     );
   }
