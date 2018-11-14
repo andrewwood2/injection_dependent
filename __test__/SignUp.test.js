@@ -1,7 +1,9 @@
 import '../setupTests';
 
 import React from 'react';
+import { Alert, Modal } from 'react-native';
 import SignUpModal from '../components/SignUpModal';
+import Styles from '../components/Styles';
 
 describe('SignUp', () => {
   let wrapper;
@@ -18,19 +20,26 @@ describe('SignUp', () => {
     });
   });
 
+  describe('Modal', () => {
+    it('throws an Alert on Android devices when closed', () => {
+      Alert.alert = jest.fn();
+      const modal = wrapper.find(Modal);
+      modal.simulate('requestClose');
+      expect(Alert.alert).toHaveBeenCalledWith('Modal closed');
+    });
+  });
+
   describe('When not visible', () => {
     it('Renders a button to sign up', () => {
       expect(wrapper.find('#signup').length).toEqual(1);
     });
 
     describe('Sign Up button', () => {
-      it('Should have button styling', () => {
+      it('Should have buttonPress styling', () => {
         const signUp = wrapper.find('#signup');
-        expect(signUp.props().style).toEqual({
-          borderColor: '#000066',
-          borderWidth: 1,
-          borderRadius: 10,
-        });
+        expect(signUp.props().style).toEqual(
+          Styles.styles.buttonPress,
+        );
       });
     });
   });
@@ -49,11 +58,19 @@ describe('SignUp', () => {
     });
 
     it('Renders a password confirmation field', () => {
-      expect(wrapper.find('#password-confirmation').length).toEqual(1);
+      expect(wrapper.find('#confirm-password').length).toEqual(1);
     });
 
     it('Renders a button to cancel', () => {
       expect(wrapper.find('#cancel').length).toEqual(1);
+    });
+  });
+
+  describe('Cancel button', () => {
+    it('renders modal not visible when pressed', () => {
+      wrapper.find('#signup').simulate('press');
+      wrapper.find('#cancel').simulate('press');
+      expect(wrapper.state().modalVisible).toEqual(false);
     });
   });
 });

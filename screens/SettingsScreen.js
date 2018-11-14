@@ -40,6 +40,9 @@ export class SettingsScreen extends React.Component {
             ))
           }
         </View>
+        <Text>
+          {'\n'}
+        </Text>
         <View>
           <SignUpModal />
         </View>

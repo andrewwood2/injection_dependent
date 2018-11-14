@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import { Modal, Text, TouchableHighlight, View, Alert, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
+import Styles from './Styles';
 import { saveInj } from '../redux/actions/history';
 import { nextInjSite, rotateNSites } from '../redux/actions/sites';
 
 export default class ConfirmModal extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       modalVisible: false,
       confirmPressStatus: true,
@@ -17,7 +18,7 @@ export default class ConfirmModal extends Component {
 
   render() {
     return (
-      <View style={styles.show}>
+      <View style={Styles.styles.show}>
         <Modal
           animationType="fade"
           presentationStyle="fullScreen"
@@ -28,34 +29,34 @@ export default class ConfirmModal extends Component {
             Alert.alert('Modal has been closed.');
           }}
         >
-          <View style={styles.container}>
+          <View style={Styles.styles.container}>
             <View>
-              <Text style={{fontSize: 20 }}>
+              <Text style={{ fontSize: 20 }}>
                 Confirm injection site:{'\n'}
               </Text>
               <Text style={{ textAlign: 'center', fontSize: 20 }}>
                 {this.props.site.side} {this.props.site.part} {this.props.site.quadrant} {'\n'}
               </Text>
               <TouchableHighlight
-                underlayColor={'#A3C5CA'}
+                underlayColor="#A3C5CA"
                 activeOpacity={1}
-                id={"finalConfirm"}
+                id="finalConfirm"
                 style={
                   this.state.confirmPressStatus
-                    ? styles.buttonPress
-                    : styles.button
+                    ? Styles.styles.buttonPress
+                    : Styles.styles.button
                 }
                 onPressIn={() => this.setState({ confirmPressStatus: true })}
                 onPressOut={() => this.setState({ confirmPressStatus: false })}
                 onPress={() => {
-                  this.setState({ modalVisible: !this.state.modalVisible })
+                  this.setState({ modalVisible: !this.state.modalVisible });
                   this.props.onConfirmation();
                 }}
               >
                 <Text style={
                   this.state.confirmPressStatus
-                    ? styles.welcomePress
-                    : styles.welcome
+                    ? Styles.styles.welcomePress
+                    : Styles.styles.welcome
                 }
                 >
                 Confirm
@@ -65,24 +66,24 @@ export default class ConfirmModal extends Component {
                 {'\n'}
               </Text>
               <TouchableHighlight
-                underlayColor={'#000066'}
+                underlayColor="#000066"
                 activeOpacity={1}
-                id={"cancel"}
+                id="cancel"
                 style={
                   this.state.cancelPressStatus
-                    ? styles.button
-                    : styles.buttonPress
+                    ? Styles.styles.button
+                    : Styles.styles.buttonPress
                 }
                 onPressIn={() => this.setState({ cancelPressStatus: true })}
                 onPressOut={() => this.setState({ cancelPressStatus: false })}
                 onPress={() => {
-                  this.setState({ modalVisible: !this.state.modalVisible })
+                  this.setState({ modalVisible: !this.state.modalVisible });
                 }}
               >
                 <Text style={
                   this.state.cancelPressStatus
-                    ? styles.welcome
-                    : styles.welcomePress
+                    ? Styles.styles.welcome
+                    : Styles.styles.welcomePress
                }>
                   Cancel
                 </Text>
@@ -92,54 +93,15 @@ export default class ConfirmModal extends Component {
         </Modal>
 
         <TouchableHighlight
-          id={"firstConfirm"}
-          style={{marginTop: 40}}
+          id="firstConfirm"
+          style={{ marginTop: 40 }}
           onPress={() => {
-            this.setState({ modalVisible: true })
+            this.setState({ modalVisible: true });
           }}
         >
-          <Text style={styles.text}>Confirm this site</Text>
+          <Text style={Styles.styles.text}>Confirm this site</Text>
         </TouchableHighlight>
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#A3C5CA',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  show: {
-    marginTop: 0,
-  },
-  text: {
-    textAlign: 'center',
-    fontSize: 20
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: "center",
-    margin: 10,
-    color: "#ffffff"
- },
-  welcomePress: {
-    fontSize: 20,
-    textAlign: "center",
-    margin: 10,
-    color: "#ffffff"
-  },
-  button: {
-    borderColor: "#000066",
-    borderWidth: 1,
-    borderRadius: 10,
-  },
-  buttonPress: {
-    borderColor: "#000066",
-    backgroundColor: "#000066",
-    borderWidth: 1,
-    borderRadius: 10,
-  }
-});

@@ -7,6 +7,7 @@ export default class SignUpModal extends Component {
     super(props);
     this.state = {
       modalVisible: false,
+      signUpPressStatus: false,
     };
   }
 
@@ -25,6 +26,9 @@ export default class SignUpModal extends Component {
           presentationStyle="fullScreen"
           transparent={false}
           visible={this.state.modalVisible}
+          onRequestClose={() => {
+            Alert.alert('Modal closed');
+          }}
         >
           <View>
             <TextInput
@@ -38,7 +42,7 @@ export default class SignUpModal extends Component {
             />
 
             <TextInput
-              id="password-confirmation"
+              id="confirm-password"
               placeholder="Confirm Password"
             />
           </View>
@@ -58,12 +62,19 @@ export default class SignUpModal extends Component {
         <View>
           <TouchableHighlight
             id="signup"
+            style={
+              this.state.signUpPressStatus
+                ? Styles.styles.button
+                : Styles.styles.buttonPress
+            }
             onPress={() => {
               this.changeVisibility();
             }
           }
           >
-            <Text>
+            <Text
+              style={Styles.styles.welcome}
+            >
               Sign Up
             </Text>
           </TouchableHighlight>
