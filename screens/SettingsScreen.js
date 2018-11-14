@@ -6,6 +6,7 @@ import { checkSites } from '../redux/actions/sites';
 import injectionsites from '../components/injectionsites';
 
 import SignUpModal from '../components/SignUpModal';
+import LoginModal from '../components/LoginModal';
 
 export class SettingsScreen extends React.Component {
   static navigationOptions = {
@@ -39,6 +40,12 @@ export class SettingsScreen extends React.Component {
               />
             ))
           }
+        </View>
+        <Text>
+          {'\n'}
+        </Text>
+        <View>
+          <LoginModal />
         </View>
         <Text>
           {'\n'}

@@ -1,6 +1,7 @@
 import '../setupTests';
 
 import React from 'react';
+import { Alert, Modal } from 'react-native';
 import LoginModal from '../components/LoginModal';
 
 describe('LoginModal', () => {
@@ -28,6 +29,23 @@ describe('LoginModal', () => {
 
     it('Renders a button to cancel', () => {
       expect(wrapper.find('#cancel').length).toEqual(1);
+    });
+
+    it('calls #changeVisibility when pressed', () => {
+      const mockChangeVisibility = jest.fn();
+      const mockLogin = shallow(<LoginModal changeVisibility={mockChangeVisibility()} />);
+      mockLogin.find('#login').simulate('pressIn');
+      mockLogin.find('#login').simulate('pressOut');
+      expect(mockChangeVisibility).toHaveBeenCalled();
+    });
+  });
+
+  describe('Modal', () => {
+    it('Renders an alert when closed', () => {
+      Alert.alert = jest.fn();
+      const modal = wrapper.find(Modal);
+      modal.simulate('requestClose');
+      expect(Alert.alert).toHaveBeenCalledWith('Modal closed');
     });
   });
 });

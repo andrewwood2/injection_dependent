@@ -34,7 +34,7 @@ export default class SignUpModal extends Component {
           <View>
             <TextInput
               id="username"
-              placeholder="User Name"
+              placeholder="Username"
             />
 
             <TextInput
