@@ -40,6 +40,23 @@ describe('LoginModal', () => {
     });
   });
 
+  describe('Cancel button', () => {
+    it('changes visibility when pressed', () => {
+      wrapper.find('#login').simulate('press');
+      wrapper.find('#cancel').simulate('press');
+      expect(wrapper.state().modalVisible).toBe(false);
+    });
+  });
+
+  describe('#changeVisibility', () => {
+    it('changes the visibility', () => {
+      const initialState = wrapper.state().modalVisible;
+      wrapper.instance().changeVisibility();
+      const nextState = wrapper.state().modalVisible;
+      expect(initialState === nextState).toBe(false);
+    });
+  });
+
   describe('Modal', () => {
     it('Renders an alert when closed', () => {
       Alert.alert = jest.fn();
