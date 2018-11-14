@@ -9,6 +9,12 @@ describe('SignUp', () => {
     wrapper = shallow(<SignUpModal />);
   });
 
+  describe('When not visible', () => {
+    it('Renders a button to sign up', () => {
+      expect(wrapper.find('#signup').length).toEqual(1);
+    });
+  });
+
   it('Renders a username field', () => {
     expect(wrapper.find('#username').length).toEqual(1);
   });
