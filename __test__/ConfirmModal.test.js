@@ -117,6 +117,7 @@ describe('ConfirmModal', () => {
       cancel.simulate('pressIn');
       cancel.simulate('pressOut');
       expect(cancel.props().style).toEqual({
+        backgroundColor: '#A3C5CA',
         borderColor: '#000066',
         borderWidth: 1,
         borderRadius: 10,

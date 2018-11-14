@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { Alert, Modal, Text, TextInput, TouchableHighlight, View } from 'react-native';
 import Styles from './Styles';
 
-export default class SignUpModal extends Component {
+export default class LoginModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
       modalVisible: false,
-      signUpPressStatus: false,
+      loginPressStatus: false,
       cancelPressStatus: false,
     };
   }
@@ -41,11 +41,6 @@ export default class SignUpModal extends Component {
               id="password"
               placeholder="Password"
             />
-
-            <TextInput
-              id="confirm-password"
-              placeholder="Confirm Password"
-            />
           </View>
           <View>
             <TouchableHighlight
@@ -69,9 +64,9 @@ export default class SignUpModal extends Component {
         </Modal>
         <View>
           <TouchableHighlight
-            id="signup"
+            id="login"
             style={
-              this.state.signUpPressStatus
+              this.state.loginPressStatus
                 ? Styles.styles.button
                 : Styles.styles.buttonPress
             }
@@ -83,7 +78,7 @@ export default class SignUpModal extends Component {
             <Text
               style={Styles.styles.welcome}
             >
-              Sign Up
+              Log In
             </Text>
           </TouchableHighlight>
         </View>
