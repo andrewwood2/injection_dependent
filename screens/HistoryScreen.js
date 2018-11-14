@@ -1,9 +1,9 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Button, Text, TextInput } from 'react-native';
 import axios from 'axios';
-import moment from 'moment'
+import moment from 'moment';
 
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import HistoryTable from '../components/HistoryTable';
 import { saveInj, resetHistory, updateSyncStatus } from '../redux/actions/history';
 
@@ -75,17 +75,17 @@ export class HistoryScreen extends React.Component {
 
         <HistoryTable history={this.props.history} />
         <Button
-            title="Load"
-            id="load"
-            onPress={() => {
+          title="Load"
+          id="load"
+          onPress={() => {
               this.prepareLoad();
             }}
-          />
+        />
         <Button
-            title="Save"
-            id="save"
-            onPress={() => this.saveData()}
-          />
+          title="Save"
+          id="save"
+          onPress={() => this.saveData()}
+        />
         <Text>Username:</Text>
         <TextInput
           name="username"
@@ -108,13 +108,13 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = (state, ownProps) => ({
-    history: state.history
-  });
+  history: state.history,
+});
 
-const mapDispatchToProps = (dispatch) => ({
-    saveInj: (inj) => { dispatch(saveInj(inj)); },
-    updateSyncStatus: () => { dispatch(updateSyncStatus()); },
-    resetHistory: () => { dispatch(resetHistory()); }
-  });
+const mapDispatchToProps = dispatch => ({
+  saveInj: (inj) => { dispatch(saveInj(inj)); },
+  updateSyncStatus: () => { dispatch(updateSyncStatus()); },
+  resetHistory: () => { dispatch(resetHistory()); },
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(HistoryScreen);
