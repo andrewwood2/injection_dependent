@@ -22,6 +22,17 @@ describe('SignUp', () => {
     it('Renders a button to sign up', () => {
       expect(wrapper.find('#signup').length).toEqual(1);
     });
+
+    describe('Sign Up button', () => {
+      it('Should have button styling', () => {
+        const signUp = wrapper.find('#signup');
+        expect(signUp.props().style).toEqual({
+          borderColor: '#000066',
+          borderWidth: 1,
+          borderRadius: 10,
+        });
+      });
+    });
   });
 
   describe('When Sign Up pressed & modalVisible', () => {
