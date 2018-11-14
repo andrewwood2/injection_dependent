@@ -8,6 +8,7 @@ export default class SignUpModal extends Component {
     this.state = {
       modalVisible: false,
       signUpPressStatus: false,
+      cancelPressStatus: false,
     };
   }
 
@@ -49,11 +50,18 @@ export default class SignUpModal extends Component {
           <View>
             <TouchableHighlight
               id="cancel"
+              style={
+                this.state.cancelPressStatus
+                  ? Styles.styles.buttonPress
+                  : Styles.styles.button
+              }
               onPress={() => {
                 this.changeVisibility();
               }}
             >
-              <Text>
+              <Text
+                style={Styles.styles.welcome}
+              >
                 Cancel
               </Text>
             </TouchableHighlight>

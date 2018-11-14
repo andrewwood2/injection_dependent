@@ -29,6 +29,7 @@ export default {
     },
     button: {
       borderColor: '#000066',
+      backgroundColor: '#A3C5CA',
       borderWidth: 1,
       borderRadius: 10,
     },

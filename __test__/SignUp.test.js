@@ -72,5 +72,10 @@ describe('SignUp', () => {
       wrapper.find('#cancel').simulate('press');
       expect(wrapper.state().modalVisible).toEqual(false);
     });
+
+    it('Should have button styling', () => {
+      const cancel = wrapper.find('#cancel');
+      expect(cancel.props().style).toEqual(Styles.styles.button);
+    });
   });
 });
