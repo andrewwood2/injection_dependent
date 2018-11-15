@@ -29,26 +29,7 @@ describe('SignUp', () => {
     });
   });
 
-  describe('When not visible', () => {
-    it('Renders a button to sign up', () => {
-      expect(wrapper.find('#signup').length).toEqual(1);
-    });
-
-    describe('Sign Up button', () => {
-      it('Should have buttonPress styling', () => {
-        const signUp = wrapper.find('#signup');
-        expect(signUp.props().style).toEqual(
-          Styles.buttonPress,
-        );
-      });
-    });
-  });
-
   describe('When Sign Up pressed & modalVisible', () => {
-    beforeEach(() => {
-      wrapper.find('#signup').simulate('press');
-    });
-
     it('Renders a username field', () => {
       expect(wrapper.find('#username').length).toEqual(1);
     });
@@ -71,12 +52,6 @@ describe('SignUp', () => {
   });
 
   describe('Cancel button', () => {
-    it('renders modal not visible when pressed', () => {
-      wrapper.find('#signup').simulate('press');
-      wrapper.find('#cancel').simulate('press');
-      expect(wrapper.state().modalVisible).toEqual(false);
-    });
-
     it('Should have button styling', () => {
       const cancel = wrapper.find('#cancel');
       expect(cancel.props().style).toEqual(Styles.button);

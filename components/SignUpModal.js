@@ -75,26 +75,6 @@ export default class SignUpModal extends Component {
             </TouchableHighlight>
           </View>
         </Modal>
-        <View>
-          <TouchableHighlight
-            id="signup"
-            style={
-              this.state.signUpPressStatus
-                ? Styles.button
-                : Styles.buttonPress
-            }
-            onPress={() => {
-              this.changeVisibility();
-            }
-          }
-          >
-            <Text
-              style={Styles.welcome}
-            >
-              Sign Up
-            </Text>
-          </TouchableHighlight>
-        </View>
       </View>
     );
   }

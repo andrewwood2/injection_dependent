@@ -68,11 +68,7 @@ export default class LoginModal extends Component {
         <View>
           <TouchableHighlight
             id="login"
-            style={
-              this.state.loginPressStatus
-                ? Styles.button
-                : Styles.buttonPress
-            }
+            style={Styles.buttonPress}
             onPress={() => {
               this.changeVisibility();
             }

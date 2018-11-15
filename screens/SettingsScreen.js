@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { checkSites } from '../redux/actions/sites';
 import injectionsites from '../components/injectionsites';
+import Styles from '../components/Styles';
 
 import SignUpModal from '../components/SignUpModal';
 import LoginModal from '../components/LoginModal';
@@ -12,6 +13,22 @@ export class SettingsScreen extends React.Component {
   static navigationOptions = {
     title: 'Settings',
   };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      signupVisibility: false,
+      loginVisibility: false,
+    };
+  }
+
+  changeSignupVisibile() {
+
+  }
+
+  changeLoginVisibile() {
+
+  }
 
   onlyUnique(self) {
     const uniqueParts = [];
@@ -43,6 +60,34 @@ export class SettingsScreen extends React.Component {
           <Text>
             {'\n'}
           </Text>
+          <TouchableHighlight
+            id="signup"
+            style={Styles.buttonPress}
+            onPress={() => {
+              this.changeSignupVisibile();
+            }
+          }
+          >
+            <Text
+              style={Styles.welcome}
+            >
+              Sign Up
+            </Text>
+          </TouchableHighlight>
+          <TouchableHighlight
+            id="login"
+            style={Styles.buttonPress}
+            onPress={() => {
+              this.changeLoginVisibile();
+            }
+          }
+          >
+            <Text
+              style={Styles.welcome}
+            >
+              Log In
+            </Text>
+          </TouchableHighlight>
           <LoginModal />
         </View>
         <Text>
