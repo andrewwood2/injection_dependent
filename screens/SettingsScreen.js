@@ -22,14 +22,6 @@ export class SettingsScreen extends React.Component {
     };
   }
 
-  changeSignupVisibile() {
-
-  }
-
-  changeLoginVisibile() {
-
-  }
-
   onlyUnique(self) {
     const uniqueParts = [];
     const uniqueSites = [];
@@ -41,6 +33,20 @@ export class SettingsScreen extends React.Component {
     });
     return uniqueSites;
   }
+
+
+  isSignupVisible() {
+    this.setState(prevState => ({
+      signupVisibility: !prevState.signupVisibility,
+    }));
+  }
+
+  isLoginVisible() {
+    this.setState(prevState => ({
+      loginVisibility: !prevState.loginVisibility,
+    }));
+  }
+
 
   render() {
     return (
@@ -64,7 +70,7 @@ export class SettingsScreen extends React.Component {
             id="signup"
             style={Styles.buttonPress}
             onPress={() => {
-              this.changeSignupVisibile();
+              this.isSignupVisible();
             }
           }
           >
@@ -78,7 +84,7 @@ export class SettingsScreen extends React.Component {
             id="login"
             style={Styles.buttonPress}
             onPress={() => {
-              this.changeLoginVisibile();
+              this.isLoginVisible();
             }
           }
           >
