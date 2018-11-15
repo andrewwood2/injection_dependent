@@ -38,7 +38,7 @@ describe('SignUp', () => {
       it('Should have buttonPress styling', () => {
         const signUp = wrapper.find('#signup');
         expect(signUp.props().style).toEqual(
-          Styles.styles.buttonPress,
+          Styles.buttonPress,
         );
       });
     });
@@ -75,7 +75,7 @@ describe('SignUp', () => {
 
     it('Should have button styling', () => {
       const cancel = wrapper.find('#cancel');
-      expect(cancel.props().style).toEqual(Styles.styles.button);
+      expect(cancel.props().style).toEqual(Styles.button);
     });
   });
 });

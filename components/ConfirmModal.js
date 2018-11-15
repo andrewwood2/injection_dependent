@@ -18,7 +18,7 @@ export default class ConfirmModal extends Component {
 
   render() {
     return (
-      <View style={Styles.styles.show}>
+      <View style={Styles.show}>
         <Modal
           animationType="fade"
           presentationStyle="fullScreen"
@@ -29,7 +29,7 @@ export default class ConfirmModal extends Component {
             Alert.alert('Modal has been closed.');
           }}
         >
-          <View style={Styles.styles.container}>
+          <View style={Styles.container}>
             <View>
               <Text style={{ fontSize: 20 }}>
                 Confirm injection site:{'\n'}
@@ -43,8 +43,8 @@ export default class ConfirmModal extends Component {
                 id="finalConfirm"
                 style={
                   this.state.confirmPressStatus
-                    ? Styles.styles.buttonPress
-                    : Styles.styles.button
+                    ? Styles.buttonPress
+                    : Styles.button
                 }
                 onPressIn={() => this.setState({ confirmPressStatus: true })}
                 onPressOut={() => this.setState({ confirmPressStatus: false })}
@@ -55,8 +55,8 @@ export default class ConfirmModal extends Component {
               >
                 <Text style={
                   this.state.confirmPressStatus
-                    ? Styles.styles.welcomePress
-                    : Styles.styles.welcome
+                    ? Styles.welcomePress
+                    : Styles.welcome
                 }
                 >
                 Confirm
@@ -71,8 +71,8 @@ export default class ConfirmModal extends Component {
                 id="cancel"
                 style={
                   this.state.cancelPressStatus
-                    ? Styles.styles.button
-                    : Styles.styles.buttonPress
+                    ? Styles.button
+                    : Styles.buttonPress
                 }
                 onPressIn={() => this.setState({ cancelPressStatus: true })}
                 onPressOut={() => this.setState({ cancelPressStatus: false })}
@@ -82,8 +82,8 @@ export default class ConfirmModal extends Component {
               >
                 <Text style={
                   this.state.cancelPressStatus
-                    ? Styles.styles.welcome
-                    : Styles.styles.welcomePress
+                    ? Styles.welcome
+                    : Styles.welcomePress
                }>
                   Cancel
                 </Text>
@@ -99,7 +99,7 @@ export default class ConfirmModal extends Component {
             this.setState({ modalVisible: true });
           }}
         >
-          <Text style={Styles.styles.text}>Confirm this site</Text>
+          <Text style={Styles.text}>Confirm this site</Text>
         </TouchableHighlight>
       </View>
     );

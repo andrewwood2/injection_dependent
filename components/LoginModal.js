@@ -50,15 +50,15 @@ export default class LoginModal extends Component {
               id="cancel"
               style={
                 this.state.cancelPressStatus
-                  ? Styles.styles.buttonPress
-                  : Styles.styles.button
+                  ? Styles.buttonPress
+                  : Styles.button
               }
               onPress={() => {
                 this.changeVisibility();
               }}
             >
               <Text
-                style={Styles.styles.welcome}
+                style={Styles.welcome}
               >
                 Cancel
               </Text>
@@ -70,8 +70,8 @@ export default class LoginModal extends Component {
             id="login"
             style={
               this.state.loginPressStatus
-                ? Styles.styles.button
-                : Styles.styles.buttonPress
+                ? Styles.button
+                : Styles.buttonPress
             }
             onPress={() => {
               this.changeVisibility();
@@ -79,7 +79,7 @@ export default class LoginModal extends Component {
           }
           >
             <Text
-              style={Styles.styles.welcome}
+              style={Styles.welcome}
             >
               Log In
             </Text>
