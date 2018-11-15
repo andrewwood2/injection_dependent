@@ -38,11 +38,19 @@ export default class SignUpModal extends Component {
             />
 
             <TextInput
+              id="email"
+              placeholder="Email"
+              textContentType="emailAddress"
+            />
+
+            <TextInput
+              secureTextEntry
               id="password"
               placeholder="Password"
             />
 
             <TextInput
+              secureTextEntry
               id="confirm-password"
               placeholder="Confirm Password"
             />

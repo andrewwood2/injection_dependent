@@ -53,6 +53,10 @@ describe('SignUp', () => {
       expect(wrapper.find('#username').length).toEqual(1);
     });
 
+    it('Renders an email fiald', () => {
+      expect(wrapper.find('#email').length).toEqual(1);
+    });
+
     it('Renders a password field', () => {
       expect(wrapper.find('#password').length).toEqual(1);
     });
