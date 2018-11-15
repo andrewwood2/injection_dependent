@@ -40,19 +40,15 @@ export class SettingsScreen extends React.Component {
               />
             ))
           }
-        </View>
-        <Text>
-          {'\n'}
-        </Text>
-        <View>
+          <Text>
+            {'\n'}
+          </Text>
           <LoginModal />
         </View>
         <Text>
           {'\n'}
         </Text>
-        <View>
-          <SignUpModal />
-        </View>
+        <SignUpModal />
       </React.Fragment>
     );
   }

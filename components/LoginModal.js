@@ -35,11 +35,14 @@ export default class LoginModal extends Component {
             <TextInput
               id="username"
               placeholder="Username"
+              textContentType="username"
             />
 
             <TextInput
+              secureTextEntry
               id="password"
               placeholder="Password"
+              textContentType="password"
             />
           </View>
           <View>
