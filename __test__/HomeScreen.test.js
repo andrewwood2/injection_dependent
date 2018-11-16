@@ -6,21 +6,21 @@ import moment from 'moment';
 import timekeeper from 'timekeeper';
 import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures';
 
-import { HomeScreen } from "../screens/HomeScreen";
+import { HomeScreen } from '../screens/HomeScreen';
 import ConfirmModal from '../screens/ConfirmModal';
-import CurrentSite from "../components/CurrentSite";
-import PreviousSite from "../components/PreviousSite";
-import injectionsites from "../components/injectionsites";
-import BodyImages from "../components/BodyImages";
-import DefaultFirstInj from "../components/defaultFirstInj"
+import CurrentSite from '../components/CurrentSite';
+import PreviousSite from '../components/PreviousSite';
+import injectionsites from '../components/injectionsites';
+import BodyImages from '../components/BodyImages';
+import DefaultFirstInj from '../components/defaultFirstInj';
 
-describe("Homescreen", () => {
-  timekeeper.freeze(new Date(1539760000000))
-  let hs
-  let mockNextInjSite
-  let mockSaveInj
-  let mockRotateNSites
-  let firstInj = new DefaultFirstInj().defaultFirstInj
+describe('Homescreen', () => {
+  timekeeper.freeze(new Date(1539760000000));
+  let hs;
+  let mockNextInjSite;
+  let mockSaveInj;
+  let mockRotateNSites;
+  let firstInj = new DefaultFirstInj().defaultFirstInj;
 
   beforeEach(() => {
     mockNextInjSite = jest.fn();
@@ -32,8 +32,8 @@ describe("Homescreen", () => {
       rotateNSites={mockRotateNSites}
       sites={injectionsites}
       history={[{ site: firstInj.site, time: firstInj.time }]}
-    />)
-  })
+    />);
+  });
 
   describe('Recommended and Previous Site components', () => {
     it('should render the text of the suggested injection location', () => {
@@ -41,7 +41,7 @@ describe("Homescreen", () => {
       expect(currentSite.length).toEqual(1);
       expect(currentSite.props().site).toEqual(injectionsites[0]);
     });
-    it("should render the text of the previous injection location, with a time", () => {
+    it('should render the text of the previous injection location, with a time', () => {
       const previousSite = hs.find(PreviousSite);
       expect(previousSite.length).toEqual(1);
       expect(previousSite.props().site).toEqual(firstInj.site);
@@ -56,7 +56,7 @@ describe("Homescreen", () => {
         rotateNSites={mockRotateNSites}
         sites={inactive}
         history={[{ site: firstInj.site, time: firstInj.time }]}
-      />)
+      />);
       const currentSite = hs.find(CurrentSite);
       expect(currentSite.length).toEqual(1);
       expect(mockRotateNSites.mock.calls.length).toBe(1);
