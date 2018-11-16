@@ -1,26 +1,26 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Button, Text, TextInput } from 'react-native';
-import axios from 'axios'
-import HistoryTable from '../components/HistoryTable';
-import moment from 'moment'
+import axios from 'axios';
+import moment from 'moment';
 
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import HistoryTable from '../components/HistoryTable';
 import { saveInj, resetHistory, updateSyncStatus } from '../redux/actions/history';
 
 // const DB_ADDRESS = 'https://guarded-caverns-16437.herokuapp.com'
 const DB_ADDRESS = 'http://localhost:9292'
 
 export class HistoryScreen extends React.Component {
+  static navigationOptions = {
+    title: 'History',
+  };
+
   constructor(props) {
     super(props);
     this.state = {
-      user_id: 'Enter username here...'
-    }
+      user_id: 'Enter username here...',
+    };
   }
-
-  static navigationOptions = {
-    title: 'History'
-  };
 
   prepareLoad() {
     if (this.state.user_id != 'Enter username here...' && this.state.user_id != 'Change me down here') {
@@ -30,7 +30,7 @@ export class HistoryScreen extends React.Component {
       //Note: should really have loadData as a callback of saveData
       this.loadData()
     } else {
-      this.setState({ user_id: 'Change me down here' })
+      this.setState({ user_id: 'Change me down here' });
     }
   }
 
@@ -47,10 +47,10 @@ export class HistoryScreen extends React.Component {
             }
           })
         }
-      })
+      });
       this.props.updateSyncStatus();
     } else {
-      this.setState({ user_id: 'Change me down here' })
+      this.setState({ user_id: 'Change me down here' });
     }
   }
 
@@ -104,7 +104,7 @@ export class HistoryScreen extends React.Component {
           name="username"
           id="username"
           placeholder={this.state.user_id}
-          onChangeText={ (user_id) => this.setState({ user_id }) }
+          onChangeText={user_id => this.setState({ user_id })}
         />
         <Button
           title={'Delete all'}
@@ -120,23 +120,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 15,
-    backgroundColor: '#fff'
-  }
+    backgroundColor: '#fff',
+  },
 });
 
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    history: state.history
-  };
-}
+const mapStateToProps = (state, ownProps) => ({
+  history: state.history,
+});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    saveInj: (inj) => { dispatch(saveInj(inj)); },
-    updateSyncStatus: () => { dispatch(updateSyncStatus()); },
-    resetHistory: () => { dispatch(resetHistory()); }
-  };
-}
+const mapDispatchToProps = dispatch => ({
+  saveInj: (inj) => { dispatch(saveInj(inj)); },
+  updateSyncStatus: () => { dispatch(updateSyncStatus()); },
+  resetHistory: () => { dispatch(resetHistory()); },
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(HistoryScreen);
