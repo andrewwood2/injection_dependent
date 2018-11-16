@@ -1,14 +1,14 @@
-import { shallow } from "enzyme";
-import { Text, Button, TextInput } from "react-native";
-import React from "react";
+import { shallow } from 'enzyme';
+import { Text, Button, TextInput } from 'react-native';
+import React from 'react';
 import timekeeper from 'timekeeper';
 
-import { HistoryScreen } from "../screens/HistoryScreen";
-import HistoryTable from "../components/HistoryTable";
-import mockAxios from "../__mocks__/axios"
-import DefaultFirstInj from "../components/defaultFirstInj"
+import { HistoryScreen } from '../screens/HistoryScreen';
+import HistoryTable from '../components/HistoryTable';
+import mockAxios from '../__mocks__/axios'
+import DefaultFirstInj from '../components/defaultFirstInj'
 
-describe("HistoryScreen", () => {
+describe('HistoryScreen', () => {
   timekeeper.freeze(new Date(1539760000000))
   let firstInj = new DefaultFirstInj().defaultFirstInj
   // const DB_ADDRESS = 'https://guarded-caverns-16437.herokuapp.com'
@@ -57,7 +57,7 @@ describe("HistoryScreen", () => {
 
   describe('DB save and load', () => {
     beforeEach(() => {
-      jest.setMock("axios", mockAxios);
+      jest.setMock('axios', mockAxios);
     })
     describe('Save', () => {
       it('wont save if no username has been provided', () => {

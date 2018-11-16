@@ -113,7 +113,7 @@ describe('Homescreen', () => {
     //     site: injectionsites[0],
     //     time: moment(),
     //     dbsync: false,
-    //     medType: "Short"
+    //     medType: 'Short'
     //   })
     // })
   });
