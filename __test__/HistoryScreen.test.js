@@ -11,9 +11,9 @@ import DefaultFirstInj from '../components/defaultFirstInj'
 describe('HistoryScreen', () => {
   timekeeper.freeze(new Date(1539760000000))
   let firstInj = new DefaultFirstInj().defaultFirstInj
-  // const DB_ADDRESS = 'https://guarded-caverns-16437.herokuapp.com'
-  const DB_ADDRESS = 'http://localhost:9292'
-
+  const DB_ADDRESS = 'https://injectiondependent.herokuapp.com'
+  // const DB_ADDRESS = 'http://localhost:9292'
+  const token = 12345
   let history
   let historyScreen;
   let mockUpdateSyncStatus
@@ -26,9 +26,10 @@ describe('HistoryScreen', () => {
     mockResetHistory = jest.fn()
     historyScreen = shallow(
       <HistoryScreen
-        history={history}
+        history = {history}
         updateSyncStatus = {mockUpdateSyncStatus}
         resetHistory = {mockResetHistory}
+        token = {token}
       />
     );
   });
@@ -82,6 +83,9 @@ describe('HistoryScreen', () => {
               time: firstInj.time,
               medtype: firstInj.medType
             }
+          },
+          {
+            headers: { 'Authorization':token }
           }
         )
         expect(mockUpdateSyncStatus.mock.calls.length).toBe(1)
@@ -103,7 +107,10 @@ describe('HistoryScreen', () => {
         userInput.simulate('changeText', 'Bob')
         historyScreen.find('#load').simulate('press')
         expect(mockAxios.get).toHaveBeenCalledWith(
-          `${DB_ADDRESS}/injections?user_id=Bob`
+          `${DB_ADDRESS}/injections?user_id=Bob`,
+          {
+            headers: { 'Authorization':token }
+          }
         )
         expect(mockUpdateSyncStatus.mock.calls.length).toBe(1)
         expect(mockResetHistory.mock.calls.length).toBe(1)
@@ -124,7 +131,10 @@ describe('HistoryScreen', () => {
         userInput.simulate('changeText', 'Bob')
         historyScreen.find('#delete').simulate('press')
         expect(mockAxios.delete).toHaveBeenCalledWith(
-          `${DB_ADDRESS}/injections/1?user_id=Bob`
+          `${DB_ADDRESS}/injections/1?user_id=Bob`,
+          {
+            headers: { 'Authorization':token }
+          }
         )
         expect(mockAxios.delete.mock.calls.length).toBe(1)
       })
