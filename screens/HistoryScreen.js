@@ -7,8 +7,8 @@ import { connect } from 'react-redux';
 import HistoryTable from '../components/HistoryTable';
 import { saveInj, resetHistory, updateSyncStatus } from '../redux/actions/history';
 
-// const DB_ADDRESS = 'https://guarded-caverns-16437.herokuapp.com'
-const DB_ADDRESS = 'http://localhost:9292'
+const DB_ADDRESS = 'https://injectiondependent.herokuapp.com'
+// const DB_ADDRESS = 'http://localhost:9292'
 
 export class HistoryScreen extends React.Component {
   static navigationOptions = {
@@ -38,14 +38,19 @@ export class HistoryScreen extends React.Component {
     if (this.state.user_id != 'Enter username here...' && this.state.user_id != 'Change me down here') {
       this.props.history.forEach((inj) => {
         if (inj.dbsync === false) {
-          axios.post(`${DB_ADDRESS}/injections`, {
-            injection: {
-              user_id: this.state.user_id,
-              site: JSON.stringify(inj.site),
-              time: inj.time,
-              medtype: inj.medType
+          axios.post(
+            `${DB_ADDRESS}/injections`,
+            {
+              injection: {
+                site: JSON.stringify(inj.site),
+                time: inj.time,
+                medtype: inj.medType
+              }
+            },
+            {
+              headers: { 'Authorization':this.props.token }
             }
-          })
+          )
         }
       });
       this.props.updateSyncStatus();
@@ -56,7 +61,10 @@ export class HistoryScreen extends React.Component {
 
   loadData() {
     self = this
-    axios.get(`${DB_ADDRESS}/injections?user_id=${this.state.user_id}`)
+    axios.get(`${DB_ADDRESS}/injections`,
+    {
+      headers: { 'Authorization':this.props.token }
+    })
     .then(data => {
       for (i in data) {
         data[i].forEach((inj) => {
@@ -76,7 +84,10 @@ export class HistoryScreen extends React.Component {
 
   deleteAllData() {
     if (this.state.user_id != 'Enter username here...' && this.state.user_id != 'Change me down here') {
-      axios.delete(`${DB_ADDRESS}/injections/1?user_id=${this.state.user_id}`)
+      axios.delete(`${DB_ADDRESS}/injections/1`,
+      {
+        headers: { 'Authorization':this.props.token }
+      })
     } else {
       this.setState({ user_id: 'Change me down here' })
     }

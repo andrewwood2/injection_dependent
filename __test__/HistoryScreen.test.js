@@ -78,7 +78,6 @@ describe('HistoryScreen', () => {
           `${DB_ADDRESS}/injections`,
           {
             injection: {
-              user_id: 'Bob',
               site: JSON.stringify(firstInj.site),
               time: firstInj.time,
               medtype: firstInj.medType
@@ -107,7 +106,7 @@ describe('HistoryScreen', () => {
         userInput.simulate('changeText', 'Bob')
         historyScreen.find('#load').simulate('press')
         expect(mockAxios.get).toHaveBeenCalledWith(
-          `${DB_ADDRESS}/injections?user_id=Bob`,
+          `${DB_ADDRESS}/injections`,
           {
             headers: { 'Authorization':token }
           }
@@ -131,7 +130,7 @@ describe('HistoryScreen', () => {
         userInput.simulate('changeText', 'Bob')
         historyScreen.find('#delete').simulate('press')
         expect(mockAxios.delete).toHaveBeenCalledWith(
-          `${DB_ADDRESS}/injections/1?user_id=Bob`,
+          `${DB_ADDRESS}/injections/1`,
           {
             headers: { 'Authorization':token }
           }
