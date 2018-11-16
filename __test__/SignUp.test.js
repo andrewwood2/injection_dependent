@@ -34,6 +34,10 @@ describe('SignUp', () => {
   });
 
   describe('Cancel button', () => {
+    it('Renders a cancel button', () => {
+      expect(wrapper.find('#cancel').length).toEqual(1);
+    });
+
     it('Should have button styling', () => {
       const cancel = wrapper.find('#cancel');
       expect(cancel.props().style).toEqual(Styles.button);
@@ -44,6 +48,17 @@ describe('SignUp', () => {
       const mockSignup = shallow(<SignUpModal hideModal={mockHideModal} />);
       mockSignup.find('#cancel').simulate('press');
       expect(mockHideModal).toHaveBeenCalled();
+    });
+  });
+
+  describe('Submit button', () => {
+    it('Renders a submit button', () => {
+      expect(wrapper.find('#submit').length).toEqual(1);
+    });
+
+    it('Should have button styling', () => {
+      const cancel = wrapper.find('#submit');
+      expect(cancel.props().style).toEqual(Styles.button);
     });
   });
 

@@ -42,6 +42,14 @@ export default class SignUpModal extends Component {
           </View>
           <View>
             <TouchableHighlight
+              id="submit"
+              style={Styles.button}
+            >
+              Submit
+            </TouchableHighlight>
+          </View>
+          <View>
+            <TouchableHighlight
               id="cancel"
               style={Styles.button}
               onPress={() => {

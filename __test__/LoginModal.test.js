@@ -38,6 +38,17 @@ describe('LoginModal', () => {
     });
   });
 
+  describe('Submit button', () => {
+    it('Renders a submit button', () => {
+      expect(wrapper.find('#submit').length).toEqual(1);
+    });
+
+    it('Should have button styling', () => {
+      const cancel = wrapper.find('#submit');
+      expect(cancel.props().style).toEqual(Styles.button);
+    });
+  });
+
   describe('Modal', () => {
     it('Renders an alert when closed', () => {
       Alert.alert = jest.fn();
