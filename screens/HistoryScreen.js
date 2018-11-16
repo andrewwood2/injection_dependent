@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Button, Text, TextInput } from 'react-native';
+import { ScrollView, StyleSheet, Button, Text, TextInput, View } from 'react-native';
 import axios from 'axios';
 import moment from 'moment';
 
@@ -15,48 +15,33 @@ export class HistoryScreen extends React.Component {
     title: 'History',
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      user_id: 'Enter username here...',
-    };
-  }
-
   prepareLoad() {
-    if (this.state.user_id != 'Enter username here...' && this.state.user_id != 'Change me down here') {
-      this.saveData()
-      this.props.resetHistory()
+    this.saveData()
+    this.props.resetHistory()
 
-      //Note: should really have loadData as a callback of saveData
-      this.loadData()
-    } else {
-      this.setState({ user_id: 'Change me down here' });
-    }
+    //Note: should really have loadData as a callback of saveData
+    this.loadData()
   }
 
   saveData() {
-    if (this.state.user_id != 'Enter username here...' && this.state.user_id != 'Change me down here') {
-      this.props.history.forEach((inj) => {
-        if (inj.dbsync === false) {
-          axios.post(
-            `${DB_ADDRESS}/injections`,
-            {
-              injection: {
-                site: JSON.stringify(inj.site),
-                time: inj.time,
-                medtype: inj.medType
-              }
-            },
-            {
-              headers: { 'Authorization':this.props.token }
+    this.props.history.forEach((inj) => {
+      if (inj.dbsync === false) {
+        axios.post(
+          `${DB_ADDRESS}/injections`,
+          {
+            injection: {
+              site: JSON.stringify(inj.site),
+              time: inj.time,
+              medtype: inj.medType
             }
-          )
-        }
-      });
-      this.props.updateSyncStatus();
-    } else {
-      this.setState({ user_id: 'Change me down here' });
-    }
+          },
+          {
+            headers: { 'Authorization':this.props.token }
+          }
+        )
+      }
+    });
+    this.props.updateSyncStatus();
   }
 
   loadData() {
@@ -83,40 +68,45 @@ export class HistoryScreen extends React.Component {
   }
 
   deleteAllData() {
-    if (this.state.user_id != 'Enter username here...' && this.state.user_id != 'Change me down here') {
-      axios.delete(`${DB_ADDRESS}/injections/1`,
-      {
-        headers: { 'Authorization':this.props.token }
-      })
-    } else {
-      this.setState({ user_id: 'Change me down here' })
+    if (this.props.token) {
+      axios.delete(
+        `${DB_ADDRESS}/injections/1`,
+        { headers: { 'Authorization':this.props.token } }
+      )
     }
     this.props.resetHistory()
+  }
+
+  buttonsIfSignedIn() {
+    if (this.props.token) {
+      return (
+        <View>
+          <Button
+            title={'Load'}
+            id={'load'}
+            onPress={ () => {
+              this.prepareLoad()
+            }}
+          />
+          <Button
+            title={'Save'}
+            id={'save'}
+            onPress={() => this.saveData()}
+          />
+        </View>
+      )
+    } else {
+      return (
+        <Text>Sign in on the settings page to save data to the cloud</Text>
+      )
+    }
   }
 
   render() {
     return (
       <ScrollView style={styles.container}>
         <HistoryTable history={this.props.history} />
-        <Button
-          title={'Load'}
-          id={'load'}
-          onPress={ () => {
-            this.prepareLoad()
-          }}
-        />
-        <Button
-          title={'Save'}
-          id={'save'}
-          onPress={() => this.saveData()}
-        />
-        <Text>Username:</Text>
-        <TextInput
-          name="username"
-          id="username"
-          placeholder={this.state.user_id}
-          onChangeText={user_id => this.setState({ user_id })}
-        />
+        {this.buttonsIfSignedIn()}
         <Button
           title={'Delete all'}
           id={'delete'}
