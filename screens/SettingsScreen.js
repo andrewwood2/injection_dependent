@@ -18,9 +18,10 @@ export class SettingsScreen extends React.Component {
     super(props);
     this.state = {
       isSignupVisible: false,
-      loginVisibility: false,
+      isLoginVisible: false,
     };
     this.signupVisibility = this.signupVisibility.bind(this);
+    this.loginVisibility = this.loginVisibility.bind(this);
   }
 
   onlyUnique(self) {
@@ -42,9 +43,9 @@ export class SettingsScreen extends React.Component {
     }));
   }
 
-  isLoginVisible() {
+  loginVisibility() {
     this.setState(prevState => ({
-      loginVisibility: !prevState.loginVisibility,
+      isLoginVisible: !prevState.isLoginVisible,
     }));
   }
 
@@ -85,7 +86,7 @@ export class SettingsScreen extends React.Component {
             id="login"
             style={Styles.buttonPress}
             onPress={() => {
-              this.isLoginVisible();
+              this.loginVisibility();
             }
           }
           >
@@ -95,12 +96,12 @@ export class SettingsScreen extends React.Component {
               Log In
             </Text>
           </TouchableHighlight>
-          <LoginModal />
         </View>
         <Text>
           {'\n'}
         </Text>
         {this.state.isSignupVisible && <SignUpModal hideModal={this.signupVisibility} />}
+        {this.state.isLoginVisible && <LoginModal hideModal={this.loginVisibility} />}
       </React.Fragment>
     );
   }

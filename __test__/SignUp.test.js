@@ -11,16 +11,7 @@ describe('SignUp', () => {
     wrapper = shallow(<SignUpModal />);
   });
 
-  describe('Modal', () => {
-    it('throws an Alert on Android devices when closed', () => {
-      Alert.alert = jest.fn();
-      const modal = wrapper.find(Modal);
-      modal.simulate('requestClose');
-      expect(Alert.alert).toHaveBeenCalledWith('Modal closed');
-    });
-  });
-
-  describe('When Sign Up pressed & modalVisible', () => {
+  describe('When modalVisible', () => {
     it('Renders a username field', () => {
       expect(wrapper.find('#username').length).toEqual(1);
     });
@@ -46,6 +37,22 @@ describe('SignUp', () => {
     it('Should have button styling', () => {
       const cancel = wrapper.find('#cancel');
       expect(cancel.props().style).toEqual(Styles.button);
+    });
+
+    it('calls #hideModal when called', () => {
+      const mockHideModal = jest.fn();
+      const mockSignup = shallow(<SignUpModal hideModal={mockHideModal} />);
+      mockSignup.find('#cancel').simulate('press');
+      expect(mockHideModal).toHaveBeenCalled();
+    });
+  });
+
+  describe('Modal', () => {
+    it('throws an Alert on Android devices when closed', () => {
+      Alert.alert = jest.fn();
+      const modal = wrapper.find(Modal);
+      modal.simulate('requestClose');
+      expect(Alert.alert).toHaveBeenCalledWith('Modal closed');
     });
   });
 });

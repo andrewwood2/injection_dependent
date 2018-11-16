@@ -84,8 +84,8 @@ describe('SettingsScreen', () => {
     });
   });
 
-  describe('#isSignupVisible', () => {
-    it('switches signupVisibility', () => {
+  describe('#signupVisibility', () => {
+    it('switches isSignupVisible', () => {
       const initialVis = app.state().isSignupVisible;
       app.instance().signupVisibility();
       const nextVis = app.state().isSignupVisible;
@@ -93,11 +93,11 @@ describe('SettingsScreen', () => {
     });
   });
 
-  describe('#isLoginVisible', () => {
-    it('switches loginVisibility', () => {
-      const initialVis = app.state().loginVisibility;
-      app.instance().isLoginVisible();
-      const nextVis = app.state().loginVisibility;
+  describe('#loginVisibility', () => {
+    it('switches isLoginVisible', () => {
+      const initialVis = app.state().isLoginVisible;
+      app.instance().loginVisibility();
+      const nextVis = app.state().isLoginVisible;
       expect(initialVis === nextVis).toBe(false);
     });
   });

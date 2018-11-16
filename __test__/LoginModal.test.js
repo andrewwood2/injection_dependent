@@ -3,22 +3,14 @@ import '../setupTests';
 import React from 'react';
 import { Alert, Modal } from 'react-native';
 import LoginModal from '../components/LoginModal';
+import Styles from '../components/Styles';
 
 describe('LoginModal', () => {
   let wrapper;
   beforeEach(() => {
     wrapper = shallow(<LoginModal />);
   });
-
-  it('Renders a button to login', () => {
-    expect(wrapper.find('#login').length).toEqual(1);
-  });
-
-  describe('When Log In pressed & modalVisible', () => {
-    beforeEach(() => {
-      wrapper.find('#login').simulate('press');
-    });
-
+  describe('When modalVisible', () => {
     it('Renders a username field', () => {
       expect(wrapper.find('#username').length).toEqual(1);
     });
@@ -30,30 +22,19 @@ describe('LoginModal', () => {
     it('Renders a button to cancel', () => {
       expect(wrapper.find('#cancel').length).toEqual(1);
     });
-
-    it('calls #changeVisibility when pressed', () => {
-      const mockChangeVisibility = jest.fn();
-      const mockLogin = shallow(<LoginModal changeVisibility={mockChangeVisibility()} />);
-      mockLogin.find('#login').simulate('pressIn');
-      mockLogin.find('#login').simulate('pressOut');
-      expect(mockChangeVisibility).toHaveBeenCalled();
-    });
   });
 
   describe('Cancel button', () => {
-    it('changes visibility when pressed', () => {
-      wrapper.find('#login').simulate('press');
-      wrapper.find('#cancel').simulate('press');
-      expect(wrapper.state().modalVisible).toBe(false);
+    it('Should have button styling', () => {
+      const cancel = wrapper.find('#cancel');
+      expect(cancel.props().style).toEqual(Styles.button);
     });
-  });
 
-  describe('#changeVisibility', () => {
-    it('changes the visibility', () => {
-      const initialState = wrapper.state().modalVisible;
-      wrapper.instance().changeVisibility();
-      const nextState = wrapper.state().modalVisible;
-      expect(initialState === nextState).toBe(false);
+    it('calls #hideModal when called', () => {
+      const mockHideModal = jest.fn();
+      const mockLogin = shallow(<LoginModal hideModal={mockHideModal} />);
+      mockLogin.find('#cancel').simulate('press');
+      expect(mockHideModal).toHaveBeenCalled();
     });
   });
 
