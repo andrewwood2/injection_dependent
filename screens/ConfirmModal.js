@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import { Modal, Text, TouchableHighlight, View, Alert, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import Styles from './Styles';
+import Styles from '../components/Styles';
 import { saveInj } from '../redux/actions/history';
 import { nextInjSite, rotateNSites } from '../redux/actions/sites';
 

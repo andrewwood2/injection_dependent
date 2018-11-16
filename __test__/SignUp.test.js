@@ -2,7 +2,7 @@ import '../setupTests';
 
 import React from 'react';
 import { Alert, Modal } from 'react-native';
-import SignUpModal from '../components/SignUpModal';
+import SignUpModal from '../screens/SignUpModal';
 import Styles from '../components/Styles';
 
 describe('SignUp', () => {
@@ -56,9 +56,9 @@ describe('SignUp', () => {
       expect(wrapper.find('#submit').length).toEqual(1);
     });
 
-    it('Should have button styling', () => {
-      const cancel = wrapper.find('#submit');
-      expect(cancel.props().style).toEqual(Styles.button);
+    it('Should have buttonPress styling', () => {
+      const submit = wrapper.find('#submit');
+      expect(submit.props().style).toEqual(Styles.buttonPress);
     });
   });
 

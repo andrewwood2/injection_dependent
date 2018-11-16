@@ -6,8 +6,8 @@ import { checkSites } from '../redux/actions/sites';
 import injectionsites from '../components/injectionsites';
 import Styles from '../components/Styles';
 
-import SignUpModal from '../components/SignUpModal';
-import LoginModal from '../components/LoginModal';
+import SignUpModal from './SignUpModal';
+import LoginModal from './LoginModal';
 
 export class SettingsScreen extends React.Component {
   static navigationOptions = {

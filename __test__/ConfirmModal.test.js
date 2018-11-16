@@ -2,7 +2,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import { Modal, Text, TouchableHighlight, View, Alert } from 'react-native';
 import moment from 'moment';
-import ConfirmModal from '../components/ConfirmModal';
+import ConfirmModal from '../screens/ConfirmModal';
 import injectionsites from '../components/injectionsites';
 
 describe('ConfirmModal', () => {
