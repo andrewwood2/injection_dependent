@@ -11,25 +11,7 @@ describe('SignUp', () => {
     wrapper = shallow(<SignUpModal />);
   });
 
-  describe('#changeVisibility', () => {
-    it('changes the visibility', () => {
-      const initialState = wrapper.state().modalVisible;
-      wrapper.instance().changeVisibility();
-      const nextState = wrapper.state().modalVisible;
-      expect(initialState === nextState).toBe(false);
-    });
-  });
-
-  describe('Modal', () => {
-    it('throws an Alert on Android devices when closed', () => {
-      Alert.alert = jest.fn();
-      const modal = wrapper.find(Modal);
-      modal.simulate('requestClose');
-      expect(Alert.alert).toHaveBeenCalledWith('Modal closed');
-    });
-  });
-
-  describe('When Sign Up pressed & modalVisible', () => {
+  describe('When modalVisible', () => {
     it('Renders a username field', () => {
       expect(wrapper.find('#username').length).toEqual(1);
     });
@@ -52,9 +34,40 @@ describe('SignUp', () => {
   });
 
   describe('Cancel button', () => {
+    it('Renders a cancel button', () => {
+      expect(wrapper.find('#cancel').length).toEqual(1);
+    });
+
     it('Should have button styling', () => {
       const cancel = wrapper.find('#cancel');
       expect(cancel.props().style).toEqual(Styles.button);
+    });
+
+    it('calls #hideModal when called', () => {
+      const mockHideModal = jest.fn();
+      const mockSignup = shallow(<SignUpModal hideModal={mockHideModal} />);
+      mockSignup.find('#cancel').simulate('press');
+      expect(mockHideModal).toHaveBeenCalled();
+    });
+  });
+
+  describe('Submit button', () => {
+    it('Renders a submit button', () => {
+      expect(wrapper.find('#submit').length).toEqual(1);
+    });
+
+    it('Should have button styling', () => {
+      const cancel = wrapper.find('#submit');
+      expect(cancel.props().style).toEqual(Styles.button);
+    });
+  });
+
+  describe('Modal', () => {
+    it('throws an Alert on Android devices when closed', () => {
+      Alert.alert = jest.fn();
+      const modal = wrapper.find(Modal);
+      modal.simulate('requestClose');
+      expect(Alert.alert).toHaveBeenCalledWith('Modal closed');
     });
   });
 });

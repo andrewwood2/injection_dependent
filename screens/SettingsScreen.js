@@ -17,17 +17,11 @@ export class SettingsScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      signupVisibility: false,
-      loginVisibility: false,
+      isSignupVisible: false,
+      isLoginVisible: false,
     };
-  }
-
-  changeSignupVisibile() {
-
-  }
-
-  changeLoginVisibile() {
-
+    this.signupVisibility = this.signupVisibility.bind(this);
+    this.loginVisibility = this.loginVisibility.bind(this);
   }
 
   onlyUnique(self) {
@@ -41,6 +35,20 @@ export class SettingsScreen extends React.Component {
     });
     return uniqueSites;
   }
+
+
+  signupVisibility() {
+    this.setState(prevState => ({
+      isSignupVisible: !prevState.isSignupVisible,
+    }));
+  }
+
+  loginVisibility() {
+    this.setState(prevState => ({
+      isLoginVisible: !prevState.isLoginVisible,
+    }));
+  }
+
 
   render() {
     return (
@@ -64,7 +72,7 @@ export class SettingsScreen extends React.Component {
             id="signup"
             style={Styles.buttonPress}
             onPress={() => {
-              this.changeSignupVisibile();
+              this.signupVisibility();
             }
           }
           >
@@ -78,7 +86,7 @@ export class SettingsScreen extends React.Component {
             id="login"
             style={Styles.buttonPress}
             onPress={() => {
-              this.changeLoginVisibile();
+              this.loginVisibility();
             }
           }
           >
@@ -88,12 +96,12 @@ export class SettingsScreen extends React.Component {
               Log In
             </Text>
           </TouchableHighlight>
-          <LoginModal />
         </View>
         <Text>
           {'\n'}
         </Text>
-        <SignUpModal />
+        {this.state.isSignupVisible && <SignUpModal hideModal={this.signupVisibility} />}
+        {this.state.isLoginVisible && <LoginModal hideModal={this.loginVisibility} />}
       </React.Fragment>
     );
   }

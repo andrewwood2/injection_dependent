@@ -38,4 +38,9 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
   },
+  inputField: {
+    height: 60,
+    fontSize: 30,
+    textAlignVertical: 'bottom',
+  },
 });

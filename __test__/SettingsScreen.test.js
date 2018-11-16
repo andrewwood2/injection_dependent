@@ -49,14 +49,14 @@ describe('SettingsScreen', () => {
     });
 
     it('calls #changeSignupVisibile when pressed', () => {
-      const changeSignupVis = jest.fn();
+      const isSignupVis = jest.fn();
       const mockScreen = shallow(<SettingsScreen
         checkSites={mockCheckSites}
         sites={injectionsites}
-        changeSignupVisibile={changeSignupVis()}
+        isSignupVisibile={isSignupVis()}
       />);
       mockScreen.find('#signup').simulate('press');
-      expect(changeSignupVis).toHaveBeenCalled();
+      expect(isSignupVis).toHaveBeenCalled();
     });
   });
 
@@ -73,14 +73,32 @@ describe('SettingsScreen', () => {
     });
 
     it('calls #changeLoginVisible when pressed', () => {
-      const changeLoginVis = jest.fn();
+      const isLoginVis = jest.fn();
       const mockScreen = shallow(<SettingsScreen
         checkSites={mockCheckSites}
         sites={injectionsites}
-        changeLoginVisible={changeLoginVis()}
+        isLoginVisible={isLoginVis()}
       />);
       mockScreen.find('#login').simulate('press');
-      expect(changeLoginVis).toHaveBeenCalled();
+      expect(isLoginVis).toHaveBeenCalled();
+    });
+  });
+
+  describe('#signupVisibility', () => {
+    it('switches isSignupVisible', () => {
+      const initialVis = app.state().isSignupVisible;
+      app.instance().signupVisibility();
+      const nextVis = app.state().isSignupVisible;
+      expect(initialVis === nextVis).toBe(false);
+    });
+  });
+
+  describe('#loginVisibility', () => {
+    it('switches isLoginVisible', () => {
+      const initialVis = app.state().isLoginVisible;
+      app.instance().loginVisibility();
+      const nextVis = app.state().isLoginVisible;
+      expect(initialVis === nextVis).toBe(false);
     });
   });
 });
