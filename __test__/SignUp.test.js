@@ -11,15 +11,6 @@ describe('SignUp', () => {
     wrapper = shallow(<SignUpModal />);
   });
 
-  describe('#changeVisibility', () => {
-    it('changes the visibility', () => {
-      const initialState = wrapper.state().modalVisible;
-      wrapper.instance().changeVisibility();
-      const nextState = wrapper.state().modalVisible;
-      expect(initialState === nextState).toBe(false);
-    });
-  });
-
   describe('Modal', () => {
     it('throws an Alert on Android devices when closed', () => {
       Alert.alert = jest.fn();

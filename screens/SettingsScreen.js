@@ -17,9 +17,10 @@ export class SettingsScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      signupVisibility: false,
+      isSignupVisible: false,
       loginVisibility: false,
     };
+    this.signupVisibility = this.signupVisibility.bind(this);
   }
 
   onlyUnique(self) {
@@ -35,9 +36,9 @@ export class SettingsScreen extends React.Component {
   }
 
 
-  isSignupVisible() {
+  signupVisibility() {
     this.setState(prevState => ({
-      signupVisibility: !prevState.signupVisibility,
+      isSignupVisible: !prevState.isSignupVisible,
     }));
   }
 
@@ -70,7 +71,7 @@ export class SettingsScreen extends React.Component {
             id="signup"
             style={Styles.buttonPress}
             onPress={() => {
-              this.isSignupVisible();
+              this.signupVisibility();
             }
           }
           >
@@ -99,7 +100,7 @@ export class SettingsScreen extends React.Component {
         <Text>
           {'\n'}
         </Text>
-        <SignUpModal />
+        {this.state.isSignupVisible && <SignUpModal hideModal={this.signupVisibility} />}
       </React.Fragment>
     );
   }

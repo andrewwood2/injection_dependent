@@ -3,21 +3,6 @@ import { Alert, Modal, Text, TextInput, TouchableHighlight, View } from 'react-n
 import Styles from './Styles';
 
 export default class SignUpModal extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      modalVisible: false,
-      signUpPressStatus: false,
-      cancelPressStatus: false,
-    };
-  }
-
-  changeVisibility() {
-    this.setState(prevState => ({
-      modalVisible: !prevState.modalVisible,
-    }));
-  }
-
   render() {
     return (
       <View>
@@ -26,7 +11,7 @@ export default class SignUpModal extends Component {
           animationType="fade"
           presentationStyle="fullScreen"
           transparent={false}
-          visible={this.state.modalVisible}
+          visible
           onRequestClose={() => {
             Alert.alert('Modal closed');
           }}
@@ -58,13 +43,9 @@ export default class SignUpModal extends Component {
           <View>
             <TouchableHighlight
               id="cancel"
-              style={
-                this.state.cancelPressStatus
-                  ? Styles.buttonPress
-                  : Styles.button
-              }
+              style={Styles.button}
               onPress={() => {
-                this.changeVisibility();
+                this.props.hideModal();
               }}
             >
               <Text
