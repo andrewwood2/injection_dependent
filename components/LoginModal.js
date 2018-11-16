@@ -21,6 +21,7 @@ export default class LoginModal extends Component {
               id="username"
               placeholder="Username"
               textContentType="username"
+              style={Styles.inputField}
             />
 
             <TextInput
@@ -28,6 +29,7 @@ export default class LoginModal extends Component {
               id="password"
               placeholder="Password"
               textContentType="password"
+              style={Styles.inputField}
             />
           </View>
           <View>

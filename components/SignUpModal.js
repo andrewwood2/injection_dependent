@@ -20,24 +20,28 @@ export default class SignUpModal extends Component {
             <TextInput
               id="username"
               placeholder="Username"
+              style={Styles.inputField}
             />
 
             <TextInput
               id="email"
               placeholder="Email"
               textContentType="emailAddress"
+              style={Styles.inputField}
             />
 
             <TextInput
               secureTextEntry
               id="password"
               placeholder="Password"
+              style={Styles.inputField}
             />
 
             <TextInput
               secureTextEntry
               id="confirm-password"
               placeholder="Confirm Password"
+              style={Styles.inputField}
             />
           </View>
           <View>
