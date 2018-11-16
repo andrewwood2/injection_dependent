@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Alert, Modal, Text, TextInput, TouchableHighlight, View } from 'react-native';
-import Styles from './Styles';
+import Styles from '../components/Styles';
 
-export default class LoginModal extends Component {
+export default class SignUpModal extends Component {
   render() {
     return (
       <View>
@@ -20,7 +20,13 @@ export default class LoginModal extends Component {
             <TextInput
               id="username"
               placeholder="Username"
-              textContentType="username"
+              style={Styles.inputField}
+            />
+
+            <TextInput
+              id="email"
+              placeholder="Email"
+              textContentType="emailAddress"
               style={Styles.inputField}
             />
 
@@ -28,7 +34,13 @@ export default class LoginModal extends Component {
               secureTextEntry
               id="password"
               placeholder="Password"
-              textContentType="password"
+              style={Styles.inputField}
+            />
+
+            <TextInput
+              secureTextEntry
+              id="confirm-password"
+              placeholder="Confirm Password"
               style={Styles.inputField}
             />
           </View>
@@ -40,7 +52,7 @@ export default class LoginModal extends Component {
               <Text
                 style={Styles.welcome}
               >
-              Submit
+                Submit
               </Text>
             </TouchableHighlight>
           </View>
