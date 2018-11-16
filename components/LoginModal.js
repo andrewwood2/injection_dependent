@@ -33,9 +33,13 @@ export default class LoginModal extends Component {
           <View>
             <TouchableHighlight
               id="submit"
-              style={Styles.button}
+              style={Styles.buttonPress}
             >
+              <Text
+                style={Styles.welcome}
+              >
               Submit
+              </Text>
             </TouchableHighlight>
           </View>
           <View>
