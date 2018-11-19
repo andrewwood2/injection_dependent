@@ -28,9 +28,6 @@ export class HistoryScreen extends React.Component {
     this.props.history.forEach((inj) => {
       // console.log(String(inj.time)===inj.time);
       if (inj.dbsync === false) {
-        console.log(JSON.stringify(inj.site));
-        console.log(String(inj.time));
-        console.log(inj.medType);
         axios.post(
           `${DB_ADDRESS}/injections`,
           {
@@ -86,7 +83,7 @@ export class HistoryScreen extends React.Component {
     if (this.props.token) {
       axios.delete(
         `${DB_ADDRESS}/injections/1`,
-        { headers: { 'Authorization':JSON.stringify(this.props.token) } }
+        { headers: { 'Authorization':this.props.token } }
       )
     }
     this.props.resetHistory()

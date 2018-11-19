@@ -67,6 +67,7 @@ export class HomeScreen extends React.Component {
   }
 
   render() {
+    // this.props.resetHistory()
     const config = {
       velocityThreshold: 0.05,
       directionalOffsetThreshold: 200,
@@ -132,7 +133,9 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch) => ({
         saveInj: (inj) => { dispatch(saveInj(inj)); },
         nextInjSite: () => { dispatch(nextInjSite()); },
-        rotateNSites: (n) => { dispatch(rotateNSites(n)); }
+        rotateNSites: (n) => { dispatch(rotateNSites(n)); },
+        resetHistory: () => { dispatch(resetHistory()); },
+
     });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

@@ -102,7 +102,7 @@ export class SettingsScreen extends React.Component {
           {'\n'}
         </Text>
         <TouchableHighlight
-          id="login"
+          id="logout"
           style={Styles.buttonPress}
           onPress={() => {
             this.props.destroyToken();

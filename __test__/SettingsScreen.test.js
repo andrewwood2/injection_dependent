@@ -32,8 +32,8 @@ describe('SettingsScreen', () => {
     expect(mockCheckSites.mock.calls.length).toBe(1);
   });
 
-  it('Renders two TouchableHighlights in total', () => {
-    expect(app.find(TouchableHighlight).length).toEqual(2);
+  it('Renders three TouchableHighlights in total', () => {
+    expect(app.find(TouchableHighlight).length).toEqual(3);
   });
 
   describe('Sign Up', () => {
