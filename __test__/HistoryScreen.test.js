@@ -19,12 +19,14 @@ describe('HistoryScreen', () => {
   let historyScreen;
   let mockUpdateSyncStatus
   let mockResetHistory
+  let mockSaveInj
 
   beforeEach(() => {
     firstInj.dbsync = false
     history = [firstInj]
     mockUpdateSyncStatus = jest.fn()
     mockResetHistory = jest.fn()
+    mockSaveInj = jest.fn()
   });
 
   describe('When not logged in', () => {
@@ -76,6 +78,7 @@ describe('HistoryScreen', () => {
           history = {history}
           updateSyncStatus = {mockUpdateSyncStatus}
           resetHistory = {mockResetHistory}
+          saveInj = {mockSaveInj}
           token={token}
         />
       );
@@ -117,6 +120,19 @@ describe('HistoryScreen', () => {
           expect(mockUpdateSyncStatus.mock.calls.length).toBe(1)
           expect(mockResetHistory.mock.calls.length).toBe(1)
         });
+        it('saves all injections once promise resolved', () => {
+          // const spy = jest.spyOn(historyScreen.instance(), 'handleLoadedData')
+          expect.assertions(2);
+          historyScreen.find('#load').simulate('press')
+          expect(mockSaveInj.mock.calls.length).toBe(1)
+          expect(mockSaveInj).toHaveBeenCalledWith({
+            site: "Here",
+            time: 1,
+            dbsync: true,
+            medType: "short"
+          })
+          // spy.mockRestore()
+        })
       });
 
       describe('Delete', () => {

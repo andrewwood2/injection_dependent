@@ -45,26 +45,29 @@ export class HistoryScreen extends React.Component {
   }
 
   loadData() {
-    self = this
     axios.get(`${DB_ADDRESS}/injections`,
     {
       headers: { 'Authorization':this.props.token }
     })
     .then(data => {
-      for (i in data) {
-        data[i].forEach((inj) => {
-          self.props.saveInj({
-            site: JSON.parse(inj.site),
-            time: inj.time,
-            dbsync: true,
-            medType: inj.medtype
-          })
-        })
-      }
+      this.handleLoadedData(data)
     })
     .catch(error => {
       console.log(error);
     })
+  }
+
+  handleLoadedData(data) {
+    for (i in data) { // this loops over all properties of an object. Probably should change
+      data[i].forEach((inj) => {
+        this.props.saveInj({
+          site: JSON.parse(inj.site),
+          time: inj.time,
+          dbsync: true,
+          medType: inj.medtype
+        })
+      })
+    }
   }
 
   deleteAllData() {
