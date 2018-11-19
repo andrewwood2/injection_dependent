@@ -21,6 +21,7 @@ export class HistoryScreen extends React.Component {
 
     //Note: should really have loadData as a callback of saveData
     this.loadData()
+
   }
 
   saveData() {
@@ -45,7 +46,7 @@ export class HistoryScreen extends React.Component {
   }
 
   loadData() {
-    axios.get(`${DB_ADDRESS}/injections`,
+    return axios.get(`${DB_ADDRESS}/injections`,
     {
       headers: { 'Authorization':this.props.token }
     })
@@ -62,7 +63,7 @@ export class HistoryScreen extends React.Component {
       data[i].forEach((inj) => {
         this.props.saveInj({
           site: JSON.parse(inj.site),
-          time: inj.time,
+          time: parseInt(inj.time),
           dbsync: true,
           medType: inj.medtype
         })

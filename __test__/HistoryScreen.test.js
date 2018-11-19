@@ -121,17 +121,64 @@ describe('HistoryScreen', () => {
           expect(mockResetHistory.mock.calls.length).toBe(1)
         });
         it('saves all injections once promise resolved', () => {
-          // const spy = jest.spyOn(historyScreen.instance(), 'handleLoadedData')
-          expect.assertions(2);
-          historyScreen.find('#load').simulate('press')
-          expect(mockSaveInj.mock.calls.length).toBe(1)
+          const spy = jest.spyOn(historyScreen.instance(), 'handleLoadedData')
+          expect.assertions(1);
+          return historyScreen.instance().loadData()
+            .then(data => {
+              expect(spy).toHaveBeenCalled()
+              spy.mockRestore()
+            })
+        })
+        it('handlesLoadedData', () => {
+          const data = {returnData:[{
+            "id": 5,
+            "site": "{\"part\":\"Thigh\",\"side\":\"Left\",\"quadrant\":1,\"active\":true,\"imgNum\":0}",
+            "time": "1539765000000.0",
+            "medtype": "short",
+            "created_at": "2018-11-16T12:04:45.676Z",
+            "updated_at": "2018-11-16T12:04:45.676Z",
+            "user_id": 7
+          }]}
+          historyScreen.instance().handleLoadedData(data)
           expect(mockSaveInj).toHaveBeenCalledWith({
-            site: "Here",
-            time: 1,
+            site: {"active": true, "imgNum": 0, "part": "Thigh", "quadrant": 1, "side": "Left"},
+            time: 1539765000000.0,
             dbsync: true,
             medType: "short"
           })
-          // spy.mockRestore()
+        })
+        it('handles multiple LoadedData', () => {
+          const data = {returnData:[{
+            "id": 5,
+            "site": "{\"part\":\"Thigh\",\"side\":\"Left\",\"quadrant\":1,\"active\":true,\"imgNum\":0}",
+            "time": "1539765000000.0",
+            "medtype": "short",
+            "created_at": "2018-11-16T12:04:45.676Z",
+            "updated_at": "2018-11-16T12:04:45.676Z",
+            "user_id": 7
+          },
+          {
+            "id": 5,
+            "site": "{\"part\":\"Thigh\",\"side\":\"Left\",\"quadrant\":2,\"active\":true,\"imgNum\":0}",
+            "time": "1539766000000.0",
+            "medtype": "long",
+            "created_at": "2018-11-16T12:04:45.676Z",
+            "updated_at": "2018-11-16T12:04:45.676Z",
+            "user_id": 7
+          }]}
+          historyScreen.instance().handleLoadedData(data)
+          expect(mockSaveInj).toHaveBeenCalledWith({
+            site: {"active": true, "imgNum": 0, "part": "Thigh", "quadrant": 1, "side": "Left"},
+            time: 1539765000000.0,
+            dbsync: true,
+            medType: "short"
+          })
+          expect(mockSaveInj).toHaveBeenCalledWith({
+            site: {"active": true, "imgNum": 0, "part": "Thigh", "quadrant": 2, "side": "Left"},
+            time: 1539766000000.0,
+            dbsync: true,
+            medType: "long"
+          })
         })
       });
 
