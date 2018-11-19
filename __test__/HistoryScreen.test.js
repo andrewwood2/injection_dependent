@@ -12,8 +12,8 @@ describe('HistoryScreen', () => {
 
   timekeeper.freeze(new Date(1539760000000))
   let firstInj = new DefaultFirstInj().defaultFirstInj
-  // const DB_ADDRESS = 'https://injectiondependent.herokuapp.com'
-  const DB_ADDRESS = 'http://localhost:9292'
+  const DB_ADDRESS = 'https://injectiondependent.herokuapp.com'
+  // const DB_ADDRESS = 'http://localhost:9292'
   const token = 12345
   let history
   let historyScreen;

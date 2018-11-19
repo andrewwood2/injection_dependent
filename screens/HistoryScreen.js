@@ -7,8 +7,8 @@ import { connect } from 'react-redux';
 import HistoryTable from '../components/HistoryTable';
 import { saveInj, resetHistory, updateSyncStatus } from '../redux/actions/history';
 
-// const DB_ADDRESS = 'https://injectiondependent.herokuapp.com'
-const DB_ADDRESS = 'http://localhost:9292'
+const DB_ADDRESS = 'https://injectiondependent.herokuapp.com'
+// const DB_ADDRESS = 'http://localhost:9292'
 
 export class HistoryScreen extends React.Component {
   static navigationOptions = {
