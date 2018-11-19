@@ -7,8 +7,8 @@ import { connect } from 'react-redux';
 import HistoryTable from '../components/HistoryTable';
 import { saveInj, resetHistory, updateSyncStatus } from '../redux/actions/history';
 
-const DB_ADDRESS = 'https://injectiondependent.herokuapp.com'
-// const DB_ADDRESS = 'http://localhost:9292'
+// const DB_ADDRESS = 'https://injectiondependent.herokuapp.com'
+const DB_ADDRESS = 'http://localhost:9292'
 
 export class HistoryScreen extends React.Component {
   static navigationOptions = {
@@ -26,20 +26,31 @@ export class HistoryScreen extends React.Component {
 
   saveData() {
     this.props.history.forEach((inj) => {
+      // console.log(String(inj.time)===inj.time);
       if (inj.dbsync === false) {
+        console.log(JSON.stringify(inj.site));
+        console.log(String(inj.time));
+        console.log(inj.medType);
         axios.post(
           `${DB_ADDRESS}/injections`,
           {
             injection: {
               site: JSON.stringify(inj.site),
-              time: inj.time,
+              time: String(inj.time),
               medtype: inj.medType
             }
           },
           {
-            headers: { 'Authorization':this.props.token }
+            headers: {
+              'Authorization':this.props.token,
+              // 'Content-Type':'application/json'
+            }
           }
         )
+        .then()
+        .catch(error => {
+          console.log(error)
+        })
       }
     });
     this.props.updateSyncStatus();
@@ -75,7 +86,7 @@ export class HistoryScreen extends React.Component {
     if (this.props.token) {
       axios.delete(
         `${DB_ADDRESS}/injections/1`,
-        { headers: { 'Authorization':this.props.token } }
+        { headers: { 'Authorization':JSON.stringify(this.props.token) } }
       )
     }
     this.props.resetHistory()
