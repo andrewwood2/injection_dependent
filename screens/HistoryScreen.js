@@ -128,6 +128,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state, ownProps) => ({
   history: state.history,
+  token: state.token
 });
 
 const mapDispatchToProps = dispatch => ({
