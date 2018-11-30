@@ -8,5 +8,10 @@ export default {
     return new Promise(resolve =>
       resolve("Hello")
     )
-  })
+  }),
+  delete: jest.fn(key => {
+    return new Promise(resolve =>
+      resolve("Hello")
+    )
+  }),  
 };

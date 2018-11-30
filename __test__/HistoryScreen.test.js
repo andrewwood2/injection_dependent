@@ -1,16 +1,18 @@
-import { shallow } from "enzyme";
-import { Text, Button, TextInput } from "react-native";
-import React from "react";
+import { shallow } from 'enzyme';
+import { Text, Button, TextInput } from 'react-native';
+import React from 'react';
 import timekeeper from 'timekeeper';
 
-import { HistoryScreen } from "../screens/HistoryScreen";
-import HistoryTable from "../components/HistoryTable";
-import mockAxios from "../__mocks__/axios"
-import DefaultFirstInj from "../components/defaultFirstInj"
+import { HistoryScreen } from '../screens/HistoryScreen';
+import HistoryTable from '../components/HistoryTable';
+import mockAxios from '../__mocks__/axios'
+import DefaultFirstInj from '../components/defaultFirstInj'
 
-describe("HistoryScreen", () => {
+describe('HistoryScreen', () => {
   timekeeper.freeze(new Date(1539760000000))
   let firstInj = new DefaultFirstInj().defaultFirstInj
+  // const DB_ADDRESS = 'https://guarded-caverns-16437.herokuapp.com'
+  const DB_ADDRESS = 'http://localhost:9292'
 
   let history
   let historyScreen;
@@ -55,13 +57,9 @@ describe("HistoryScreen", () => {
 
   describe('DB save and load', () => {
     beforeEach(() => {
-      // let axios = mockAxios;
-      jest.setMock("axios", mockAxios);
+      jest.setMock('axios', mockAxios);
     })
     describe('Save', () => {
-      beforeEach(() => {
-
-      })
       it('wont save if no username has been provided', () => {
         historyScreen.find('#save').simulate('press')
         expect(mockAxios.post.mock.calls.length).toEqual(0)
@@ -76,12 +74,12 @@ describe("HistoryScreen", () => {
         userInput.simulate('changeText', 'Bob')
         historyScreen.find('#save').simulate('press')
         expect(mockAxios.post).toHaveBeenCalledWith(
-          'https://guarded-caverns-16437.herokuapp.com/injections',
+          `${DB_ADDRESS}/injections`,
           {
             injection: {
               user_id: 'Bob',
               site: JSON.stringify(firstInj.site),
-              time: firstInj.time.unix(),
+              time: firstInj.time,
               medtype: firstInj.medType
             }
           }
@@ -91,9 +89,6 @@ describe("HistoryScreen", () => {
     })
 
     describe('Load', () => {
-      beforeEach(() => {
-
-      })
       it('wont load if no username has been provided', () => {
         historyScreen.find('#load').simulate('press')
         expect(mockAxios.get.mock.calls.length).toEqual(0)
@@ -108,10 +103,30 @@ describe("HistoryScreen", () => {
         userInput.simulate('changeText', 'Bob')
         historyScreen.find('#load').simulate('press')
         expect(mockAxios.get).toHaveBeenCalledWith(
-          'https://guarded-caverns-16437.herokuapp.com/injections?user_id=Bob'
+          `${DB_ADDRESS}/injections?user_id=Bob`
         )
         expect(mockUpdateSyncStatus.mock.calls.length).toBe(1)
         expect(mockResetHistory.mock.calls.length).toBe(1)
+      })
+    })
+
+    describe('Delete', () => {
+      it('deletes data locally', () => {
+        historyScreen.find('#delete').simulate('press')
+        expect(mockResetHistory.mock.calls.length).toEqual(1)
+      })
+      it('wont call db if no username has been provided', () => {
+        historyScreen.find('#delete').simulate('press')
+        expect(mockAxios.delete.mock.calls.length).toEqual(0)
+      })
+      it('calls axios delete on the users records', () => {
+        userInput = historyScreen.find(TextInput)
+        userInput.simulate('changeText', 'Bob')
+        historyScreen.find('#delete').simulate('press')
+        expect(mockAxios.delete).toHaveBeenCalledWith(
+          `${DB_ADDRESS}/injections/1?user_id=Bob`
+        )
+        expect(mockAxios.delete.mock.calls.length).toBe(1)
       })
     })
   });

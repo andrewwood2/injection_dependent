@@ -7,6 +7,9 @@ import { connect } from 'react-redux';
 import HistoryTable from '../components/HistoryTable';
 import { saveInj, resetHistory, updateSyncStatus } from '../redux/actions/history';
 
+// const DB_ADDRESS = 'https://guarded-caverns-16437.herokuapp.com'
+const DB_ADDRESS = 'http://localhost:9292'
+
 export class HistoryScreen extends React.Component {
   static navigationOptions = {
     title: 'History',
@@ -21,9 +24,11 @@ export class HistoryScreen extends React.Component {
 
   prepareLoad() {
     if (this.state.user_id != 'Enter username here...' && this.state.user_id != 'Change me down here') {
-      this.saveData();
-      this.props.resetHistory();
-      this.loadData();
+      this.saveData()
+      this.props.resetHistory()
+
+      //Note: should really have loadData as a callback of saveData
+      this.loadData()
     } else {
       this.setState({ user_id: 'Change me down here' });
     }
@@ -33,14 +38,14 @@ export class HistoryScreen extends React.Component {
     if (this.state.user_id != 'Enter username here...' && this.state.user_id != 'Change me down here') {
       this.props.history.forEach((inj) => {
         if (inj.dbsync === false) {
-          axios.post('https://guarded-caverns-16437.herokuapp.com/injections', {
+          axios.post(`${DB_ADDRESS}/injections`, {
             injection: {
               user_id: this.state.user_id,
               site: JSON.stringify(inj.site),
-              time: inj.time.unix(),
-              medtype: inj.medType,
-            },
-          });
+              time: inj.time,
+              medtype: inj.medType
+            }
+          })
         }
       });
       this.props.updateSyncStatus();
@@ -50,40 +55,48 @@ export class HistoryScreen extends React.Component {
   }
 
   loadData() {
-    self = this;
-    axios.get(`https://guarded-caverns-16437.herokuapp.com/injections?user_id=${this.state.user_id}`)
-      .then((data) => {
-        for (i in data) {
-          data[i].forEach((inj) => {
-            self.props.saveInj({
-              site: JSON.parse(inj.site),
-              time: moment.unix(parseInt(inj.time, 10)),
-              dbsync: true,
-              medType: inj.medtype,
-            });
-          });
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    self = this
+    axios.get(`${DB_ADDRESS}/injections?user_id=${this.state.user_id}`)
+    .then(data => {
+      for (i in data) {
+        data[i].forEach((inj) => {
+          self.props.saveInj({
+            site: JSON.parse(inj.site),
+            time: inj.time,
+            dbsync: true,
+            medType: inj.medtype
+          })
+        })
+      }
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  }
+
+  deleteAllData() {
+    if (this.state.user_id != 'Enter username here...' && this.state.user_id != 'Change me down here') {
+      axios.delete(`${DB_ADDRESS}/injections/1?user_id=${this.state.user_id}`)
+    } else {
+      this.setState({ user_id: 'Change me down here' })
+    }
+    this.props.resetHistory()
   }
 
   render() {
     return (
       <ScrollView style={styles.container}>
-
         <HistoryTable history={this.props.history} />
         <Button
-          title="Load"
-          id="load"
-          onPress={() => {
-              this.prepareLoad();
-            }}
+          title={'Load'}
+          id={'load'}
+          onPress={ () => {
+            this.prepareLoad()
+          }}
         />
         <Button
-          title="Save"
-          id="save"
+          title={'Save'}
+          id={'save'}
           onPress={() => this.saveData()}
         />
         <Text>Username:</Text>
@@ -92,6 +105,11 @@ export class HistoryScreen extends React.Component {
           id="username"
           placeholder={this.state.user_id}
           onChangeText={user_id => this.setState({ user_id })}
+        />
+        <Button
+          title={'Delete all'}
+          id={'delete'}
+          onPress={() => this.deleteAllData()}
         />
       </ScrollView>
     );
