@@ -2,10 +2,12 @@
 import { combineReducers } from 'redux';
 import sites from './sites';
 import history from './history';
+import token from './token';
 
 const reducers = combineReducers({
     sites,
-    history
+    history,
+    token
 });
 
 export default reducers;

@@ -3,6 +3,7 @@ import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { checkSites } from '../redux/actions/sites';
+import { destroyToken } from '../redux/actions/token';
 import injectionsites from '../components/injectionsites';
 import Styles from '../components/Styles';
 
@@ -87,8 +88,8 @@ export class SettingsScreen extends React.Component {
             style={Styles.buttonPress}
             onPress={() => {
               this.loginVisibility();
+              }
             }
-          }
           >
             <Text
               style={Styles.welcome}
@@ -100,6 +101,18 @@ export class SettingsScreen extends React.Component {
         <Text>
           {'\n'}
         </Text>
+        <TouchableHighlight
+          id="logout"
+          style={Styles.buttonPress}
+          onPress={() => {
+            this.props.destroyToken();
+            }
+          }
+        >
+          <Text style={Styles.welcome} >
+            Log Out
+          </Text>
+        </TouchableHighlight>
         {this.state.isSignupVisible && <SignUpModal hideModal={this.signupVisibility} />}
         {this.state.isLoginVisible && <LoginModal hideModal={this.loginVisibility} />}
       </React.Fragment>
@@ -109,10 +122,12 @@ export class SettingsScreen extends React.Component {
 
 const mapStateToProps = (state, ownProps) => ({
   sites: state.sites,
+  token: state.token
 });
 
 const mapDispatchToProps = dispatch => ({
   checkSites: (part, previousCheckedStatus) => { dispatch(checkSites(part, previousCheckedStatus)); },
+  destroyToken: () => {dispatch(destroyToken()); }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SettingsScreen);

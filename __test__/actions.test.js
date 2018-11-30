@@ -1,5 +1,6 @@
 import { saveInj, resetHistory, updateSyncStatus } from '../redux/actions/history';
 import { nextInjSite, checkSites, resetSites, rotateNSites } from '../redux/actions/sites';
+import { saveToken, destroyToken } from '../redux/actions/token'
 
 describe('actions', () => {
   it('should create an action to save injection', () => {
@@ -57,5 +58,21 @@ describe('actions', () => {
       previousCheckedStatus: previousCheckedStatus
     }
     expect(checkSites(part, previousCheckedStatus)).toEqual(expectedAction)
+  })
+
+  it('should create an action to save a web token', () => {
+    const token = '12345'
+    const expectedAction = {
+      type: 'token-save',
+      token: token,
+    }
+    expect(saveToken(token)).toEqual(expectedAction)
+  })
+
+  it('should create an action to destroy a web token', () => {
+    const expectedAction = {
+      type: 'token-destroy',
+    }
+    expect(destroyToken()).toEqual(expectedAction)
   })
 })
