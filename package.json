@@ -57,6 +57,7 @@
     "react-redux": "^5.0.7",
     "react-test-renderer": "^16.5.2",
     "redux": "^4.0.1",
+    "redux-persist": "^5.10.0",
     "toggle-switch-react-native": "^2.0.2"
   },
   "devDependencies": {

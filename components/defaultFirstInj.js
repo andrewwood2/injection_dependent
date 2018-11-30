@@ -1,11 +1,14 @@
 import injectionsites from './injectionsites';
-import moment from 'moment';
 
 export default class DefaultFirstInj {
   constructor() {
     this.defaultFirstInj = {
-      site: injectionsites[injectionsites.length - 1],
-      time: moment(),
+      site: {
+        part: 'injections appear',
+        side: 'Previous',
+        quadrant: 'here',
+      },
+      time: Date.now(),
       dbsync: true,
       medType: 'Short',
     }

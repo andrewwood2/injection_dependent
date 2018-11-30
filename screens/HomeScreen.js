@@ -33,7 +33,7 @@ export class HomeScreen extends React.Component {
   handleConfirmation() {
     this.props.saveInj({
       site: this.props.sites[0],
-      time: moment(),
+      time: Date.now(),
       dbsync: false,
       medType: (this.state.shortMed ? 'Short' : 'Long'),
     });
